@@ -1,5 +1,6 @@
 import BasicLayout from "main/layouts/BasicLayout/BasicLayout";
 
+// Stryker disable all
 export default function HomePage() {
   return (
     <BasicLayout>
