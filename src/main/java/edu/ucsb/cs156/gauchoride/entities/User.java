@@ -33,4 +33,5 @@ public class User {
   private boolean driver=false;
   @Builder.Default
   private boolean rider=false;
+  private boolean rider = false;
 }
