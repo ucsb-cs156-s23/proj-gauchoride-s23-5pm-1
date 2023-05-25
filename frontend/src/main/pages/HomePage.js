@@ -4,7 +4,7 @@ export default function HomePage() {
   return (
     <BasicLayout>
       <div className="pt-2">
-        <img src="UCSBLogo.png" style={{width: "150px", display: "inline-block", verticalAlign: "middle", margin:"0px 20px"}}></img>
+        <img src="UCSBLogo.png" style={{width: "150px", display: "inline-block", verticalAlign: "middle", margin:"0px 20px"}} alt="UCSB Logo"></img>
         <h1 style={{display: "inline-block", verticalAlign:"middle"}}>Gauchoride</h1>
 
         <div style={{margin:"0px 20px", backgroundColor:"#f5f5f5", padding: "20px"}}>
