@@ -304,7 +304,6 @@ public class UsersControllerTests extends ControllerTestCase {
           .email("cgaucho@ucsb.edu")
           .id(15L)
           .admin(true)
-          .admin(false)
           .driver(false)
           .build();
 
