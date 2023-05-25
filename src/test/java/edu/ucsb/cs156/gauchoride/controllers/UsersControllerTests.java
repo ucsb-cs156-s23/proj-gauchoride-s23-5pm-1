@@ -234,7 +234,7 @@ public class UsersControllerTests extends ControllerTestCase {
 
   @WithMockUser(roles = { "ADMIN", "USER" })
   @Test
-  public void admin_tries_to_toggle_non_existant_user_and_gets_right_error_message() throws Exception {
+  public void admin_tries_to_toggle_admin_status_non_existant_user_and_gets_right_error_message() throws Exception {
           // arrange
         
     
@@ -304,6 +304,7 @@ public class UsersControllerTests extends ControllerTestCase {
           .email("cgaucho@ucsb.edu")
           .id(15L)
           .admin(true)
+          .admin(false)
           .driver(false)
           .build();
 
@@ -328,8 +329,6 @@ public class UsersControllerTests extends ControllerTestCase {
   @Test
   public void admin_tries_to_toggle_driver_on_non_existant_user_and_gets_right_error_message() throws Exception {
           // arrange
-        
-    
           when(userRepository.findById(eq(15L))).thenReturn(Optional.empty());
           
           // act
@@ -345,4 +344,5 @@ public class UsersControllerTests extends ControllerTestCase {
           Map<String, Object> json = responseToJson(response);
           assertEquals("User with id 15 not found", json.get("message"));
   }
+
 }
