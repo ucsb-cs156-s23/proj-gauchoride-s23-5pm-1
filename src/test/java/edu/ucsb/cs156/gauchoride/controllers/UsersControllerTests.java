@@ -345,21 +345,6 @@ public class UsersControllerTests extends ControllerTestCase {
           assertEquals("User with id 15 not found", json.get("message"));
   }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
   @WithMockUser(roles = { "ADMIN", "USER" })
   @Test
   public void admin_can_toggle_rider_status_of_a_user_from_false_to_true() throws Exception {
