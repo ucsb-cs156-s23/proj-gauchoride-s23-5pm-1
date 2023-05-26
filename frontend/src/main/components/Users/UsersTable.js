@@ -5,6 +5,25 @@ import { useBackendMutation } from "main/utils/useBackend";
 
 
 export default function UsersTable({ users}) {
+    function cellToAxiosParamsToggleRider(cell) {
+        return {
+            url: "/api/admin/users/toggleRider",
+            method: "POST",
+            params: {
+                id: cell.row.values.id
+            }
+        }
+    }
+    // Stryker disable all : hard to test for query caching
+    const toggleRiderMutation = useBackendMutation(
+        cellToAxiosParamsToggleRider,
+        {},
+        ["/api/admin/users"]
+    );
+    // Stryker enable all 
+
+     // Stryker disable next-line all : TODO try to make a good test for this
+    const toggleRiderCallback = async (cell) => { toggleRiderMutation.mutate(cell); }
 
     function cellToAxiosParamsToggleAdmin(cell) {
         return {
@@ -65,6 +84,7 @@ export default function UsersTable({ users}) {
     const buttonColumn = [
         ...columns,
         ButtonColumn("toggle-admin", "primary", toggleAdminCallback, "UsersTable"),
+        ButtonColumn("toggle-rider", "primary", toggleRiderCallback, "UsersTable")
     ]
 
     //const columnsToDisplay = showButtons ? buttonColumn : columns;
