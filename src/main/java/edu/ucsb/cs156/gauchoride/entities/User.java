@@ -32,5 +32,5 @@ public class User {
   @Builder.Default
   private boolean driver=false;
   @Builder.Default
-  private boolean rider = false;
+  private boolean rider=false;
 }
