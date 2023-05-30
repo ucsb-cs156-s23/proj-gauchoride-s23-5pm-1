@@ -296,14 +296,14 @@ public class UsersControllerTests extends ControllerTestCase {
           User userBefore = User.builder()
           .email("cgaucho@ucsb.edu")
           .id(15L)
-          .admin(false)
+          .admin(true)
           .driver(true)
           .build();
 
           User userAfter = User.builder()
           .email("cgaucho@ucsb.edu")
           .id(15L)
-          .admin(false)
+          .admin(true)
           .driver(false)
           .build();
 
@@ -326,9 +326,8 @@ public class UsersControllerTests extends ControllerTestCase {
 
   @WithMockUser(roles = { "ADMIN", "USER" })
   @Test
-  public void admin_tries_to_toggle_driver_status_non_existant_user_and_gets_right_error_message() throws Exception {
+  public void admin_tries_to_toggle_driver_on_non_existant_user_and_gets_right_error_message() throws Exception {
           // arrange
-        
           when(userRepository.findById(eq(15L))).thenReturn(Optional.empty());
           
           // act
