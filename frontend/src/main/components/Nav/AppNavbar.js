@@ -11,14 +11,13 @@ export default function AppNavbar({ currentUser, systemInfo, doLogout, currentUr
           <AppNavbarLocalhost url={currentUrl} />
         )
       }
-      <Navbar expand="xl" variant="dark" bg="dark" sticky="top" data-testid="AppNavbar">
+      <Navbar expand="xl" variant="dark" sticky="top" data-testid="AppNavbar" style={{ backgroundColor: '#003660' }}>
         <Container>
           <Navbar.Brand as={Link} to="/">
             GauchoRide
           </Navbar.Brand>
 
           <Navbar.Toggle />
-
           <>
             {/* be sure that each NavDropdown has a unique id and data-testid */}
           </>
