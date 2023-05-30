@@ -20,8 +20,8 @@ public class Ride {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private long id;
   // these members are of the users class, refer to User.java
-  private User rider;
-  private User driver;
+  private long riderID;
+  private long driverID;
   // In the future, we would want to make a location class to organize these easier
   private String rideDay;
   private String courseNum;
