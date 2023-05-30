@@ -14,7 +14,7 @@ import javax.persistence.GenerationType;
 @AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Builder
-@Entity(name = "users")
+@Entity(name = "rides")
 public class Ride {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
