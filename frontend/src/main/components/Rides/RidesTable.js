@@ -4,7 +4,7 @@ import { useBackendMutation } from "main/utils/useBackend";
 
 
 
-export default function UsersTable({ users}) {
+export default function RidesTable({rides}) {
 
     const columns = [
         {
@@ -24,27 +24,19 @@ export default function UsersTable({ users}) {
             accessor: 'email',
         },
         {
-            Header: 'Admin',
-            id: 'admin',
-            accessor: (row, _rowIndex) => String(row.admin) // hack needed for boolean values to show up
-        },
-        {
             Header: 'Driver',
             id: 'driver',
             accessor: (row, _rowIndex) => String(row.driver) // hack needed for boolean values to show up
+        },
+        {
+            Header: 'Rides',
+            accessor: 'rides',
         }
     ];
 
-    const buttonColumn = [
-        ...columns,
-        ButtonColumn("toggle-admin", "primary", toggleAdminCallback, "UsersTable"),
-    ]
-
-    //const columnsToDisplay = showButtons ? buttonColumn : columns;
-
     return <OurTable
-        data={users}
-        columns={buttonColumn}
-        testid={"UsersTable"}
+        data={rides}
+        columns={columns}
+        testid={"RidesTable"}
     />;
 };

@@ -4,7 +4,7 @@ import { useBackendMutation } from "main/utils/useBackend";
 
 
 
-export default function UsersTable({ users}) {
+export default function UsersTable({users}) {
 
     function cellToAxiosParamsToggleAdmin(cell) {
         return {
