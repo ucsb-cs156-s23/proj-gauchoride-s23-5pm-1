@@ -18,25 +18,13 @@ export default function RidesTable({rides}) {
         {
             Header: 'Last Name',
             accessor: 'familyName',
-        },
-        {
-            Header: 'Email',
-            accessor: 'email',
-        },
-        {
-            Header: 'Driver',
-            id: 'driver',
-            accessor: (row, _rowIndex) => String(row.driver) // hack needed for boolean values to show up
-        },
-        {
-            Header: 'Rides',
-            accessor: 'rides',
         }
     ];
 
+
     return <OurTable
         data={rides}
-        columns={columns}
+        columns={buttonColumn}
         testid={"RidesTable"}
     />;
 };
