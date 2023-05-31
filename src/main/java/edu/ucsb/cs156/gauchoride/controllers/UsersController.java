@@ -8,6 +8,8 @@ import edu.ucsb.cs156.gauchoride.repositories.UserRepository;
 
 import edu.ucsb.cs156.gauchoride.errors.EntityNotFoundException;
 
+import java.util.ArrayList;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -42,6 +44,38 @@ public class UsersController extends ApiController {
             throws JsonProcessingException {
         Iterable<User> users = userRepository.findAll();
         String body = mapper.writeValueAsString(users);
+        return ResponseEntity.ok().body(body);
+    }
+
+    @ApiOperation(value = "Get a list of all riders")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @GetMapping("/riders")
+    public ResponseEntity<String> riders()
+            throws JsonProcessingException {
+        Iterable<User> users = userRepository.findAll();
+        List<User> riders = new ArrayList<>();
+        for(User user : users) {
+            if (user.getRider()) {
+                riders.add(user);
+            }
+        }
+        String body = mapper.writeValueAsString((Iterable<User>)riders);
+        return ResponseEntity.ok().body(body);
+    }
+
+    @ApiOperation(value = "Get a list of all drivers")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @GetMapping("/drivers")
+    public ResponseEntity<String> drivers()
+            throws JsonProcessingException {
+        Iterable<User> users = userRepository.findAll();
+        List<User> drivers = new ArrayList<>();
+        for(User user : users) {
+            if (user.getDriver()) {
+                drivers.add(user);
+            }
+        }
+        String body = mapper.writeValueAsString((Iterable<User>)drivers);
         return ResponseEntity.ok().body(body);
     }
 
