@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>IndividualRidesController.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">GauchoRide</a> &gt; <a href="index.source.html" class="el_package">edu.ucsb.cs156.gauchoride.controllers</a> &gt; <span class="el_source">IndividualRidesController.java</span></div><h1>IndividualRidesController.java</h1><pre class="source lang-java linenums">package edu.ucsb.cs156.gauchoride.controllers;
+
+import edu.ucsb.cs156.gauchoride.entities.IndividualRides;
+import edu.ucsb.cs156.gauchoride.errors.EntityNotFoundException;
+import edu.ucsb.cs156.gauchoride.repositories.IndividualRidesRepository;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
+import lombok.extern.slf4j.Slf4j;
+
+import com.fasterxml.jackson.core.JsonProcessingException;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+
+import javax.validation.Valid;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+
+@Api(description = &quot;IndividualRides&quot;)
+@RequestMapping(&quot;/api/individualRides&quot;)
+@RestController
+<span class="fc" id="L35">@Slf4j</span>
+<span class="fc" id="L36">public class IndividualRidesController extends ApiController {</span>
+ 
+    @Autowired
+    IndividualRidesRepository individualRidesRepository;
+    
+    @ApiOperation(value = &quot;List all individualRides&quot;)
+    // @PreAuthorize(&quot;hasRole('ROLE_USER')&quot;)
+    @GetMapping(&quot;/all&quot;)
+    public Iterable&lt;IndividualRides&gt; allIndividualRides() {
+<span class="nc" id="L45">        Iterable&lt;IndividualRides&gt; individualRides = individualRidesRepository.findAll();</span>
+<span class="nc" id="L46">        return individualRides;</span>
+    }
+
+    @ApiOperation(value = &quot;List all individualRides with driverId&quot;)
+    // @PreAuthorize(&quot;hasRole('ROLE_USER')&quot;)
+    @GetMapping(&quot;/allWithDriverId&quot;)
+    public Iterable&lt;IndividualRides&gt; allIndividualRidesWithDriverId( 
+        @ApiParam(&quot;driverId&quot;) @RequestParam Long id) {
+
+<span class="nc" id="L55">        Iterable&lt;IndividualRides&gt; individualRides = individualRidesRepository.findAll();</span>
+<span class="nc" id="L56">        List&lt;IndividualRides&gt; filteredList = new ArrayList&lt;&gt;();</span>
+
+<span class="nc bnc" id="L58" title="All 2 branches missed.">        for(IndividualRides ride : individualRides){</span>
+<span class="nc bnc" id="L59" title="All 2 branches missed.">            if(ride.getDriverId() == id)</span>
+<span class="nc" id="L60">                filteredList.add(ride);</span>
+<span class="nc" id="L61">        }</span>
+
+<span class="nc" id="L63">        return (Iterable&lt;IndividualRides&gt;)filteredList;</span>
+    }
+
+    @ApiOperation(value = &quot;List all individualRides with riderId&quot;)
+    // @PreAuthorize(&quot;hasRole('ROLE_USER')&quot;)
+    @GetMapping(&quot;allWithRiderId&quot;)
+    public Iterable&lt;IndividualRides&gt; allIndividualRidesWithRiderId( 
+        @ApiParam(&quot;driverId&quot;) @RequestParam Long id) {
+
+<span class="nc" id="L72">        Iterable&lt;IndividualRides&gt; individualRides = individualRidesRepository.findAll();</span>
+<span class="nc" id="L73">        List&lt;IndividualRides&gt; filteredList = new ArrayList&lt;&gt;();</span>
+
+<span class="nc bnc" id="L75" title="All 2 branches missed.">        for(IndividualRides ride : individualRides){</span>
+<span class="nc bnc" id="L76" title="All 2 branches missed.">            for (Long element : ride.getRiderIds()) {</span>
+<span class="nc bnc" id="L77" title="All 2 branches missed.">                if (element == id) {</span>
+<span class="nc" id="L78">                    filteredList.add(ride);</span>
+<span class="nc" id="L79">                    break;</span>
+                }
+            }
+<span class="nc" id="L82">        }</span>
+
+<span class="nc" id="L84">        return (Iterable&lt;IndividualRides&gt;)filteredList;</span>
+    }
+
+    @ApiOperation(value = &quot;Get a single ride&quot;)
+    // @PreAuthorize(&quot;hasRole('ROLE_USER')&quot;)
+    @GetMapping(&quot;&quot;)
+    public IndividualRides getById(
+            @ApiParam(&quot;id&quot;) @RequestParam Long id) {
+<span class="fc" id="L92">                IndividualRides individualRide = individualRidesRepository.findById(id)</span>
+<span class="pc" id="L93">                .orElseThrow(() -&gt; new EntityNotFoundException(IndividualRides.class, id));</span>
+
+<span class="fc" id="L95">        return individualRide;</span>
+    }
+
+    @ApiOperation(value = &quot;Delete a ride&quot;)
+    // @PreAuthorize(&quot;hasRole('ROLE_ADMIN')&quot;)
+    @DeleteMapping(&quot;&quot;)
+    public Object deleteRide(
+            @ApiParam(&quot;id&quot;) @RequestParam Long id) {
+<span class="nc" id="L103">        IndividualRides individualRide = individualRidesRepository.findById(id)</span>
+<span class="nc" id="L104">                .orElseThrow(() -&gt; new EntityNotFoundException(IndividualRides.class, id));</span>
+
+<span class="nc" id="L106">            individualRidesRepository.delete(individualRide);</span>
+<span class="nc" id="L107">        return genericMessage(&quot;Ride with id %s deleted&quot;.formatted(id));</span>
+    }
+
+    @ApiOperation(value = &quot;Update a single ride&quot;)
+    // @PreAuthorize(&quot;hasRole('ROLE_ADMIN')&quot;)
+    @PutMapping(&quot;&quot;)
+    public IndividualRides updateIndividualRide(
+            @ApiParam(&quot;id&quot;) @RequestParam Long id,
+            @RequestBody @Valid IndividualRides incoming) {
+
+<span class="nc" id="L117">        IndividualRides individualRide = individualRidesRepository.findById(id)</span>
+<span class="nc" id="L118">                .orElseThrow(() -&gt; new EntityNotFoundException(IndividualRides.class, id));</span>
+
+<span class="nc" id="L120">        individualRide.setTripId(incoming.getTripId());</span>
+<span class="nc" id="L121">        individualRide.setDriverId(incoming.getDriverId());</span>
+<span class="nc" id="L122">        individualRide.setRiderIds(incoming.getRiderIds());</span>
+<span class="nc" id="L123">        individualRide.setStartTime(incoming.getStartTime());</span>
+<span class="nc" id="L124">        individualRide.setEndTime(incoming.getEndTime());</span>
+<span class="nc" id="L125">        individualRide.setPickupLocation(incoming.getPickupLocation());</span>
+<span class="nc" id="L126">        individualRide.setDropoffLocation(incoming.getDropoffLocation());</span>
+<span class="nc" id="L127">        individualRide.setAutoRenew(incoming.getAutoRenew());</span>
+<span class="nc" id="L128">        individualRidesRepository.save(individualRide);</span>
+
+<span class="nc" id="L130">        return individualRide;</span>
+    }
+
+    @ApiOperation(value = &quot;Create a new individualRide&quot;)
+    // @PreAuthorize(&quot;hasRole('ROLE_ADMIN')&quot;)
+    @PostMapping(&quot;/post&quot;)
+    public IndividualRides postIndividualRide(
+        @ApiParam(&quot;tripId&quot;) @RequestParam Long tripId,
+        @ApiParam(&quot;driverId&quot;) @RequestParam Long driverId,
+        @ApiParam(&quot;riderIds&quot;) @RequestParam Long[] riderIds,
+        @ApiParam(&quot;startTime&quot;) @RequestParam String startTimeString,
+        @ApiParam(&quot;endTime&quot;) @RequestParam String endTimeString,
+        @ApiParam(&quot;pickupLocation&quot;) @RequestParam String pickupLocation,
+        @ApiParam(&quot;dropoffLocation&quot;) @RequestParam String dropoffLocation,
+        @ApiParam(&quot;autoRenew&quot;) @RequestParam Boolean autoRenew
+        )
+    {
+
+
+<span class="nc" id="L149">        LocalDateTime startTime = LocalDateTime.parse(startTimeString);</span>
+<span class="nc" id="L150">        LocalDateTime endTime = LocalDateTime.parse(endTimeString);</span>
+
+<span class="nc" id="L152">        IndividualRides individualRide = new IndividualRides();</span>
+<span class="nc" id="L153">        individualRide.setTripId(tripId);</span>
+<span class="nc" id="L154">        individualRide.setDriverId(driverId);</span>
+<span class="nc" id="L155">        individualRide.setRiderIds(riderIds);</span>
+<span class="nc" id="L156">        individualRide.setStartTime(startTime);</span>
+<span class="nc" id="L157">        individualRide.setEndTime(endTime);</span>
+<span class="nc" id="L158">        individualRide.setPickupLocation(pickupLocation);</span>
+<span class="nc" id="L159">        individualRide.setDropoffLocation(dropoffLocation);</span>
+<span class="nc" id="L160">        individualRide.setAutoRenew(autoRenew);</span>
+
+<span class="nc" id="L162">        IndividualRides savedRide = individualRidesRepository.save(individualRide);</span>
+<span class="nc" id="L163">        return savedRide;</span>
+    }
+}
+
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>
