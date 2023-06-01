@@ -15,7 +15,7 @@ const AdminUsersPage = () => {
             { method: "GET", url: "/api/admin/users" },
             []
         );
-        const [isCheckedAll, setIsCheckedAll] = useState(false);
+        const [isCheckedAll, setIsCheckedAll] = useState(true);
         const [isCheckedDrivers, setIsCheckedDrivers] = useState(false);
         const [isCheckedRiders, setIsCheckedRiders] = useState(false);
         const handleOnChangeAll = () => {
@@ -39,18 +39,18 @@ const AdminUsersPage = () => {
     const { data: allRiders, error: __error1, status: __status1 } =
         useBackend(
             // Stryker disable next-line all : don't test internal caching of React Query
-            ["/api/admin/riders"],
+            ["/api/admin/users"],
             // Stryker disable next-line StringLiteral,ObjectLiteral : since "GET" is default, "" is an equivalent mutation
-            { method: "GET", url: "/api/admin/riders" },
+            { method: "GET", url: "/api/admin/users/riders" },
             []
         );
 
     const { data: allDrivers, error: _error2, status: _statu2 } =
         useBackend(
             // Stryker disable next-line all : don't test internal caching of React Query
-            ["/api/admin/drivers"],
+            ["/api/admin/users"],
             // Stryker disable next-line StringLiteral,ObjectLiteral : since "GET" is default, "" is an equivalent mutation
-            { method: "GET", url: "/api/admin/drivers" },
+            { method: "GET", url: "/api/admin/users/drivers" },
             []
         );
         
