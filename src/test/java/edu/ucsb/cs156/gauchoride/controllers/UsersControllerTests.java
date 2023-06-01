@@ -443,60 +443,60 @@ public class UsersControllerTests extends ControllerTestCase {
 
     // arrange
 
-    User u1 = User.builder().id(1L).rider(true).build();
-    User u2 = User.builder().id(2L).rider(false).build();
-    User u3 = User.builder().id(3L).rider(true).build();
-    User u4 = User.builder().id(4L).rider(false).build();
+          User u1 = User.builder().id(1L).rider(true).build();
+          User u2 = User.builder().id(2L).rider(false).build();
+          User u3 = User.builder().id(3L).rider(true).build();
+          User u4 = User.builder().id(4L).rider(false).build();
 
-    ArrayList<User> expectedUsers = new ArrayList<>();
-    expectedUsers.addAll(Arrays.asList(u1, u3));
-    String expectedJson = mapper.writeValueAsString(expectedUsers);
+          ArrayList<User> expectedUsers = new ArrayList<>();
+          expectedUsers.addAll(Arrays.asList(u1, u3));
+          String expectedJson = mapper.writeValueAsString(expectedUsers);
 
-    ArrayList<User> allUsers = new ArrayList<>();
-    allUsers.addAll(Arrays.asList(u1, u2, u3, u4));
-    when(userRepository.findAll()).thenReturn(allUsers);
+          ArrayList<User> allUsers = new ArrayList<>();
+          allUsers.addAll(Arrays.asList(u1, u2, u3, u4));
+          when(userRepository.findAll()).thenReturn(allUsers);
 
-    // act
+          // act
 
-    MvcResult response = mockMvc.perform(get("/api/admin/users/riders"))
-        .andExpect(status().isOk()).andReturn();
+          MvcResult response = mockMvc.perform(get("/api/admin/users/riders"))
+                .andExpect(status().isOk()).andReturn();
 
-    // assert
+          // assert
 
-    verify(userRepository, times(1)).findAll();
-    String responseString = response.getResponse().getContentAsString();
-    assertEquals(expectedJson, responseString);
+          verify(userRepository, times(1)).findAll();
+          String responseString = response.getResponse().getContentAsString();
+          assertEquals(expectedJson, responseString);
   }
 
   @WithMockUser(roles = { "ADMIN", "USER" })
   @Test
   public void drivers__admin_logged_in() throws Exception {
 
-    // arrange
+      // arrange
 
-    User u1 = User.builder().id(1L).driver(true).build();
-    User u2 = User.builder().id(2L).driver(false).build();
-    User u3 = User.builder().id(3L).driver(true).build();
-    User u4 = User.builder().id(4L).driver(false).build();
+          User u1 = User.builder().id(1L).driver(true).build();
+          User u2 = User.builder().id(2L).driver(false).build();
+          User u3 = User.builder().id(3L).driver(true).build();
+          User u4 = User.builder().id(4L).driver(false).build();
 
-    ArrayList<User> expectedUsers = new ArrayList<>();
-    expectedUsers.addAll(Arrays.asList(u1, u3));
-    String expectedJson = mapper.writeValueAsString(expectedUsers);
+          ArrayList<User> expectedUsers = new ArrayList<>();
+          expectedUsers.addAll(Arrays.asList(u1, u3));
+          String expectedJson = mapper.writeValueAsString(expectedUsers);
 
-    ArrayList<User> allUsers = new ArrayList<>();
-    allUsers.addAll(Arrays.asList(u1, u2, u3, u4));
-    when(userRepository.findAll()).thenReturn(allUsers);
+          ArrayList<User> allUsers = new ArrayList<>();
+          allUsers.addAll(Arrays.asList(u1, u2, u3, u4));
+          when(userRepository.findAll()).thenReturn(allUsers);
 
-    // act
+          // act
 
-    MvcResult response = mockMvc.perform(get("/api/admin/users/drivers"))
-        .andExpect(status().isOk()).andReturn();
+          MvcResult response = mockMvc.perform(get("/api/admin/users/drivers"))
+                .andExpect(status().isOk()).andReturn();
 
-    // assert
+          // assert
 
-    verify(userRepository, times(1)).findAll();
-    String responseString = response.getResponse().getContentAsString();
-    assertEquals(expectedJson, responseString);
+          verify(userRepository, times(1)).findAll();
+          String responseString = response.getResponse().getContentAsString();
+          assertEquals(expectedJson, responseString);
   }
 
 }
