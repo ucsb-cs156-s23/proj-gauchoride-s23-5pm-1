@@ -149,7 +149,7 @@ describe("AppNavbar tests", () => {
 
     });
     
-        test("the Navbar has the correct backgroundColor", async () => {
+    test("the Navbar has the correct backgroundColor", async () => {
         const currentUser = currentUserFixtures.userOnly;
         const systemInfo = systemInfoFixtures.showingBoth;
         const doLogin = jest.fn();
