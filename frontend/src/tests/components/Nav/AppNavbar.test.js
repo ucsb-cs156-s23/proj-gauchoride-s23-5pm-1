@@ -154,7 +154,7 @@ describe("AppNavbar tests", () => {
         const systemInfo = systemInfoFixtures.showingBoth;
         const doLogin = jest.fn();
 
-        const {getByTestId, queryByTestId } = render(
+        const {getByTestId} = render(
             <QueryClientProvider client={queryClient}>
                 <MemoryRouter>
                     <AppNavbar currentUser={currentUser} systemInfo={systemInfo} doLogin={doLogin} />
