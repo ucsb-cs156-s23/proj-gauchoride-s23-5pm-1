@@ -98,6 +98,5 @@ export default function UsersTable({ users}) {
         data={users}
         columns={buttonColumn}
         testid={"UsersTable"}
-        
     />;
 };
