@@ -25,6 +25,7 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.validation.Valid;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -65,7 +66,7 @@ public class IndividualRidesController extends ApiController {
 
     @ApiOperation(value = "List all individualRides with riderId")
     // @PreAuthorize("hasRole('ROLE_USER')")
-    @GetMapping("allWithRiderId")
+    @GetMapping("/allWithRiderId")
     public Iterable<IndividualRides> allIndividualRidesWithRiderId( 
         @ApiParam("driverId") @RequestParam Long id) {
 
@@ -73,12 +74,9 @@ public class IndividualRidesController extends ApiController {
         List<IndividualRides> filteredList = new ArrayList<>();
 
         for(IndividualRides ride : individualRides){
-            for (Long element : ride.getRiderIds()) {
-                if (element == id) {
-                    filteredList.add(ride);
-                    break;
-                }
-            }
+            List<Long> riderIds = Arrays.asList(ride.getRiderIds());
+            if(riderIds.contains(id))
+                filteredList.add(ride);
         }
 
         return (Iterable<IndividualRides>)filteredList;
