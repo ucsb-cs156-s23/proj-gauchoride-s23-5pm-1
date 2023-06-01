@@ -30,9 +30,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">100% </span>
+                <span class="strong">75% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>2/2</span>
+                <span class='fraction'>3/4</span>
             </div>
         
             
@@ -107,25 +107,45 @@
 <a name='L42'></a><a href='#L42'>42</a>
 <a name='L43'></a><a href='#L43'>43</a>
 <a name='L44'></a><a href='#L44'>44</a>
-<a name='L45'></a><a href='#L45'>45</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L45'></a><a href='#L45'>45</a>
+<a name='L46'></a><a href='#L46'>46</a>
+<a name='L47'></a><a href='#L47'>47</a>
+<a name='L48'></a><a href='#L48'>48</a>
+<a name='L49'></a><a href='#L49'>49</a>
+<a name='L50'></a><a href='#L50'>50</a>
+<a name='L51'></a><a href='#L51'>51</a>
+<a name='L52'></a><a href='#L52'>52</a>
+<a name='L53'></a><a href='#L53'>53</a>
+<a name='L54'></a><a href='#L54'>54</a>
+<a name='L55'></a><a href='#L55'>55</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">6x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">6x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">5x</span>
-<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -157,44 +177,54 @@ import RoleBadge from "main/components/Profile/RoleBadge";
 import { useCurrentUser } from "main/utils/currentUser";
 import BasicLayout from "main/layouts/BasicLayout/BasicLayout";
 &nbsp;
-import ReactJson from "react-json-view";
 const ProfilePage = () =&gt; {
+  const { data: currentUser } = useCurrentUser();
 &nbsp;
-    const { data: currentUser } = useCurrentUser();
+  if (!currentUser.loggedIn) {
+    return &lt;p&gt;Not logged in.&lt;/p&gt;;
+  }
 &nbsp;
-    if (!currentUser.loggedIn) {
-        return (
-            &lt;p&gt;Not logged in.&lt;/p&gt;
-        )
-    }
+  const { email, pictureUrl, fullName } = currentUser.root.user;
+//   const emailVerified = currentUser.root.user.emailVerified;
 &nbsp;
-    const { email, pictureUrl, fullName } = currentUser.root.user;
-    return (
-        &lt;BasicLayout&gt;
-            &lt;Row className="align-items-center profile-header mb-5 text-center text-md-left"&gt;
-                &lt;Col md={2}&gt;
-                    &lt;img
-                        src={pictureUrl}
-                        alt="Profile"
-                        className="rounded-circle img-fluid profile-picture mb-3 mb-md-0"
-                    /&gt;
-                &lt;/Col&gt;
-                &lt;Col md&gt;
-                    &lt;h2&gt;{fullName}&lt;/h2&gt;
-                    &lt;p className="lead text-muted"&gt;{email}&lt;/p&gt;
-                    &lt;RoleBadge role={"ROLE_USER"} currentUser={currentUser}/&gt;
-                    &lt;RoleBadge role={"ROLE_MEMBER"} currentUser={currentUser}/&gt;
-                    &lt;RoleBadge role={"ROLE_ADMIN"} currentUser={currentUser}/&gt;
-                &lt;/Col&gt;
-            &lt;/Row&gt;
-            &lt;Row className="text-left"&gt;
-                &lt;ReactJson src={currentUser.root} /&gt;
-            &lt;/Row&gt;
-        &lt;/BasicLayout&gt;
-    );
+  return (
+    &lt;BasicLayout&gt;
+      &lt;Row className="align-items-center profile-header mb-5 text-center text-md-left"&gt;
+        &lt;Col md={2}&gt;
+          &lt;img
+            src={pictureUrl}
+            alt="Profile"
+            className="rounded-circle img-fluid profile-picture mb-3 mb-md-0"
+          /&gt;
+        &lt;/Col&gt;
+        &lt;Col md&gt;
+          &lt;h2&gt;{fullName}&lt;/h2&gt;
+          &lt;p className="lead text-muted"&gt;{email}&lt;/p&gt;
+          &lt;RoleBadge role={"ROLE_USER"} currentUser={currentUser} /&gt;
+          &lt;RoleBadge role={"ROLE_MEMBER"} currentUser={currentUser} /&gt;
+          &lt;RoleBadge role={"ROLE_ADMIN"} currentUser={currentUser} /&gt;
+          &lt;RoleBadge role={"ROLE_DRIVER"} currentUser={currentUser} /&gt;
+          &lt;RoleBadge role={"ROLE_RIDER"} currentUser={currentUser} /&gt;
+        &lt;/Col&gt;
+      &lt;/Row&gt;
+      &lt;Row className="text-left"&gt;
+        &lt;div&gt;
+            &lt;h4&gt;Pronouns:&lt;/h4&gt;
+            &lt;p&gt;{currentUser.root.user.pronouns}&lt;/p&gt;
+            &lt;h4&gt;Email Verified?&lt;/h4&gt;
+            &lt;p&gt;{currentUser.root.user.emailVerified ? "Yes" : <span class="branch-1 cbranch-no" title="branch not covered" >"No"}</span>&lt;/p&gt;
+            &lt;h4&gt;Email&lt;/h4&gt;
+            &lt;p&gt;{email}&lt;/p&gt;
+        &lt;/div&gt;
+      &lt;/Row&gt;
+    &lt;/BasicLayout&gt;
+  );
 };
 &nbsp;
 export default ProfilePage;
+&nbsp;
+&nbsp;
+&nbsp;
 &nbsp;</pre></td></tr></table></pre>
 
                 <div class='push'></div><!-- for sticky footer -->
@@ -202,7 +232,7 @@ export default ProfilePage;
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at Wed May 31 2023 17:34:09 GMT-0700 (Pacific Daylight Time)
+                at Wed May 31 2023 17:41:51 GMT-0700 (Pacific Daylight Time)
             </div>
         <script src="../prettify.js"></script>
         <script>
