@@ -148,8 +148,22 @@ describe("AppNavbar tests", () => {
         expect(queryByTestId(/AppNavbarLocalhost/i)).toBeNull();
     });
 
+    test("the Navbar has the correct backgroundColor", async () => {
+        const currentUser = currentUserFixtures.userOnly;
+        const systemInfo = systemInfoFixtures.showingBoth;
+        const doLogin = jest.fn();
 
-   
+        const {getByTestId, queryByTestId } = render(
+            <QueryClientProvider client={queryClient}>
+                <MemoryRouter>
+                    <AppNavbar currentUser={currentUser} systemInfo={systemInfo} doLogin={doLogin} />
+                </MemoryRouter>
+            </QueryClientProvider>
+        );
+
+        expect(getByTestId("AppNavbar")).toHaveStyle('backgroundColor: #003660')
+    });
+
 });
 
 
