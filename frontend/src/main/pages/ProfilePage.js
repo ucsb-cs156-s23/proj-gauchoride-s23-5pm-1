@@ -36,8 +36,6 @@ const ProfilePage = () => {
       </Row>
       <Row className="text-left">
         <div>
-            <h4>Pronouns:</h4>
-            <p>{currentUser.root.user.pronouns}</p>
             <h4>Email Verified?</h4>
             <p>{currentUser.root.user.emailVerified ? "Yes" : "No"}</p>
             <h4>Email</h4>
