@@ -66,7 +66,7 @@ describe("ProfilePage tests", () => {
         );
 
         await waitFor( () => expect(getByText("Phillip Conrad")).toBeInTheDocument() );
-        // expect(getByTestId("role-badge-user")).toBeInTheDocument();
+        expect(getByTestId("role-badge-user")).toBeInTheDocument();
         // expect(getByTestId("role-badge-admin")).toBeInTheDocument();
         // expect(getByTestId("role-badge-member")).toBeInTheDocument();
         expect(getByText("pconrad.cis@gmail.com")).toBeInTheDocument();
