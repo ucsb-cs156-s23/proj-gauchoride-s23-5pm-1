@@ -156,4 +156,15 @@ public class UsersController extends ApiController {
         }
     }
 
+    @ApiOperation(value = "Toggle the wheelchair field")
+    @PostMapping("/toggleWheelchair")
+    public Object toggleWheelchair( @ApiParam("id") @RequestParam Long id){
+        User user = userRepository.findById(id)
+        .orElseThrow(() -> new EntityNotFoundException(User.class, id));
+
+        user.setWheelchair(!user.getWheelchair());
+        userRepository.save(user);
+        return genericMessage("User with id %s has toggled wheelchair status".formatted(id));
+    }
+
 }
