@@ -147,7 +147,7 @@ import io.swagger.annotations.ApiParam;
     public Object changePronouns(@ApiParam(&quot;id&quot;) @RequestParam Long id, 
                             @ApiParam(&quot;pronouns&quot;) @RequestParam String pronouns){
 <span class="fc" id="L149">        User user = userRepository.findById(id)</span>
-<span class="pc" id="L150">        .orElseThrow(() -&gt; new EntityNotFoundException(User.class, id));</span>
+<span class="fc" id="L150">        .orElseThrow(() -&gt; new EntityNotFoundException(User.class, id));</span>
 
 <span class="fc" id="L152">        user.setPronouns(pronouns);</span>
 <span class="fc" id="L153">        userRepository.save(user);</span>
