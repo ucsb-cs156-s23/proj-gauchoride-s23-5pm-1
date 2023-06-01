@@ -26,20 +26,26 @@ const ProfilePage = () => {
         </Col>
         <Col md>
           <h2>{fullName}</h2>
-          <p className="lead text-muted">{email}</p>
+          {/* This is supposed to be pronouns */}
+          {/* <p className="lead text-muted">{currentUser.root.user.emailVerified ? "Yes": ""}</p> */}
+          {/* <p className="lead text-muted">{email}</p> */}
           <RoleBadge role={"ROLE_USER"} currentUser={currentUser} />
           <RoleBadge role={"ROLE_MEMBER"} currentUser={currentUser} />
           <RoleBadge role={"ROLE_ADMIN"} currentUser={currentUser} />
-          <RoleBadge role={"ROLE_DRIVER"} currentUser={currentUser} />
-          <RoleBadge role={"ROLE_RIDER"} currentUser={currentUser} />
         </Col>
       </Row>
       <Row className="text-left">
         <div>
-            <h4>Email Verified?</h4>
-            <p>{currentUser.root.user.emailVerified ? "Yes" : "No"}</p>
-            <h4>Email</h4>
+            <h4>Email:</h4>
             <p>{email}</p>
+            <h4>Role:</h4>
+            <p>
+            {currentUser.root.user.rider
+              ? "Rider"
+              : currentUser.root.user.driver
+              ? "Driver"
+              : "N/A"}
+            </p>
         </div>
       </Row>
     </BasicLayout>
