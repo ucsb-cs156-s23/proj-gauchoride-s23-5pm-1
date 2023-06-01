@@ -8,6 +8,8 @@ import edu.ucsb.cs156.gauchoride.repositories.UserRepository;
 
 import edu.ucsb.cs156.gauchoride.errors.EntityNotFoundException;
 
+import java.util.ArrayList;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -28,7 +30,7 @@ import io.swagger.annotations.ApiParam;
 @Api(description = &quot;User information (admin only)&quot;)
 @RequestMapping(&quot;/api/admin/users&quot;)
 @RestController
-<span class="fc" id="L31">public class UsersController extends ApiController {</span>
+<span class="fc" id="L33">public class UsersController extends ApiController {</span>
     @Autowired
     UserRepository userRepository;
 
@@ -40,9 +42,41 @@ import io.swagger.annotations.ApiParam;
     @GetMapping(&quot;&quot;)
     public ResponseEntity&lt;String&gt; users()
             throws JsonProcessingException {
-<span class="fc" id="L43">        Iterable&lt;User&gt; users = userRepository.findAll();</span>
-<span class="fc" id="L44">        String body = mapper.writeValueAsString(users);</span>
-<span class="fc" id="L45">        return ResponseEntity.ok().body(body);</span>
+<span class="fc" id="L45">        Iterable&lt;User&gt; users = userRepository.findAll();</span>
+<span class="fc" id="L46">        String body = mapper.writeValueAsString(users);</span>
+<span class="fc" id="L47">        return ResponseEntity.ok().body(body);</span>
+    }
+
+    @ApiOperation(value = &quot;Get a list of all riders&quot;)
+    @PreAuthorize(&quot;hasRole('ROLE_ADMIN')&quot;)
+    @GetMapping(&quot;/riders&quot;)
+    public ResponseEntity&lt;String&gt; riders()
+            throws JsonProcessingException {
+<span class="fc" id="L55">        Iterable&lt;User&gt; users = userRepository.findAll();</span>
+<span class="fc" id="L56">        List&lt;User&gt; riders = new ArrayList&lt;&gt;();</span>
+<span class="fc bfc" id="L57" title="All 2 branches covered.">        for(User user : users) {</span>
+<span class="fc bfc" id="L58" title="All 2 branches covered.">            if (user.getRider()) {</span>
+<span class="fc" id="L59">                riders.add(user);</span>
+            }
+<span class="fc" id="L61">        }</span>
+<span class="fc" id="L62">        String body = mapper.writeValueAsString((Iterable&lt;User&gt;)riders);</span>
+<span class="fc" id="L63">        return ResponseEntity.ok().body(body);</span>
+    }
+
+    @ApiOperation(value = &quot;Get a list of all drivers&quot;)
+    @PreAuthorize(&quot;hasRole('ROLE_ADMIN')&quot;)
+    @GetMapping(&quot;/drivers&quot;)
+    public ResponseEntity&lt;String&gt; drivers()
+            throws JsonProcessingException {
+<span class="fc" id="L71">        Iterable&lt;User&gt; users = userRepository.findAll();</span>
+<span class="fc" id="L72">        List&lt;User&gt; drivers = new ArrayList&lt;&gt;();</span>
+<span class="fc bfc" id="L73" title="All 2 branches covered.">        for(User user : users) {</span>
+<span class="fc bfc" id="L74" title="All 2 branches covered.">            if (user.getDriver()) {</span>
+<span class="fc" id="L75">                drivers.add(user);</span>
+            }
+<span class="fc" id="L77">        }</span>
+<span class="fc" id="L78">        String body = mapper.writeValueAsString((Iterable&lt;User&gt;)drivers);</span>
+<span class="fc" id="L79">        return ResponseEntity.ok().body(body);</span>
     }
 
     @ApiOperation(value = &quot;Get user by id&quot;)
@@ -51,9 +85,9 @@ import io.swagger.annotations.ApiParam;
     public User users(
             @ApiParam(&quot;id&quot;) @RequestParam Long id)
             throws JsonProcessingException {
-<span class="fc" id="L54">        User user = userRepository.findById(id)</span>
-<span class="fc" id="L55">                .orElseThrow(() -&gt; new EntityNotFoundException(User.class, id));</span>
-<span class="fc" id="L56">        return user;</span>
+<span class="fc" id="L88">        User user = userRepository.findById(id)</span>
+<span class="fc" id="L89">                .orElseThrow(() -&gt; new EntityNotFoundException(User.class, id));</span>
+<span class="fc" id="L90">        return user;</span>
     }
 
     @ApiOperation(value = &quot;Delete a user (admin)&quot;)
@@ -61,12 +95,12 @@ import io.swagger.annotations.ApiParam;
     @DeleteMapping(&quot;/delete&quot;)
     public Object deleteUser_Admin(
             @ApiParam(&quot;id&quot;) @RequestParam Long id) {
-<span class="fc" id="L64">              User user = userRepository.findById(id)</span>
-<span class="fc" id="L65">          .orElseThrow(() -&gt; new EntityNotFoundException(User.class, id));</span>
+<span class="fc" id="L98">              User user = userRepository.findById(id)</span>
+<span class="fc" id="L99">          .orElseThrow(() -&gt; new EntityNotFoundException(User.class, id));</span>
 
-<span class="fc" id="L67">          userRepository.delete(user);</span>
+<span class="fc" id="L101">          userRepository.delete(user);</span>
 
-<span class="fc" id="L69">        return genericMessage(&quot;User with id %s deleted&quot;.formatted(id));</span>
+<span class="fc" id="L103">        return genericMessage(&quot;User with id %s deleted&quot;.formatted(id));</span>
     }
 
     
@@ -74,36 +108,36 @@ import io.swagger.annotations.ApiParam;
     @PreAuthorize(&quot;hasRole('ROLE_ADMIN')&quot;)
     @PostMapping(&quot;/toggleAdmin&quot;)
     public Object toggleAdmin( @ApiParam(&quot;id&quot;) @RequestParam Long id){
-<span class="fc" id="L77">        User user = userRepository.findById(id)</span>
-<span class="fc" id="L78">        .orElseThrow(() -&gt; new EntityNotFoundException(User.class, id));</span>
+<span class="fc" id="L111">        User user = userRepository.findById(id)</span>
+<span class="fc" id="L112">        .orElseThrow(() -&gt; new EntityNotFoundException(User.class, id));</span>
 
-<span class="fc bfc" id="L80" title="All 2 branches covered.">        user.setAdmin(!user.getAdmin());</span>
-<span class="fc" id="L81">        userRepository.save(user);</span>
-<span class="fc" id="L82">        return genericMessage(&quot;User with id %s has toggled admin status&quot;.formatted(id));</span>
+<span class="fc bfc" id="L114" title="All 2 branches covered.">        user.setAdmin(!user.getAdmin());</span>
+<span class="fc" id="L115">        userRepository.save(user);</span>
+<span class="fc" id="L116">        return genericMessage(&quot;User with id %s has toggled admin status&quot;.formatted(id));</span>
     }
 
     @ApiOperation(value = &quot;Toggle the driver field&quot;)
     @PreAuthorize(&quot;hasRole('ROLE_ADMIN')&quot;)
     @PostMapping(&quot;/toggleDriver&quot;)
     public Object toggleDriver( @ApiParam(&quot;id&quot;) @RequestParam Long id){
-<span class="fc" id="L89">        User user = userRepository.findById(id)</span>
-<span class="fc" id="L90">        .orElseThrow(() -&gt; new EntityNotFoundException(User.class, id));</span>
+<span class="fc" id="L123">        User user = userRepository.findById(id)</span>
+<span class="fc" id="L124">        .orElseThrow(() -&gt; new EntityNotFoundException(User.class, id));</span>
 
-<span class="fc bfc" id="L92" title="All 2 branches covered.">        user.setDriver(!user.getDriver());</span>
-<span class="fc" id="L93">        userRepository.save(user);</span>
-<span class="fc" id="L94">        return genericMessage(&quot;User with id %s has toggled driver status&quot;.formatted(id));</span>
+<span class="fc bfc" id="L126" title="All 2 branches covered.">        user.setDriver(!user.getDriver());</span>
+<span class="fc" id="L127">        userRepository.save(user);</span>
+<span class="fc" id="L128">        return genericMessage(&quot;User with id %s has toggled driver status&quot;.formatted(id));</span>
     }
 
     @ApiOperation(value = &quot;Toggle the rider field&quot;)
     @PreAuthorize(&quot;hasRole('ROLE_ADMIN')&quot;)
     @PostMapping(&quot;/toggleRider&quot;)
     public Object toggleRider( @ApiParam(&quot;id&quot;) @RequestParam Long id){
-<span class="fc" id="L101">        User user = userRepository.findById(id)</span>
-<span class="fc" id="L102">        .orElseThrow(() -&gt; new EntityNotFoundException(User.class, id));</span>
+<span class="fc" id="L135">        User user = userRepository.findById(id)</span>
+<span class="fc" id="L136">        .orElseThrow(() -&gt; new EntityNotFoundException(User.class, id));</span>
 
-<span class="fc bfc" id="L104" title="All 2 branches covered.">        user.setRider(!user.getRider());</span>
-<span class="fc" id="L105">        userRepository.save(user);</span>
-<span class="fc" id="L106">        return genericMessage(&quot;User with id %s has toggled rider status&quot;.formatted(id));</span>
+<span class="fc bfc" id="L138" title="All 2 branches covered.">        user.setRider(!user.getRider());</span>
+<span class="fc" id="L139">        userRepository.save(user);</span>
+<span class="fc" id="L140">        return genericMessage(&quot;User with id %s has toggled rider status&quot;.formatted(id));</span>
     }
 
 }
