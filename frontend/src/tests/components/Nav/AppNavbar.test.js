@@ -146,8 +146,9 @@ describe("AppNavbar tests", () => {
 
         await waitFor(() => expect(getByTestId("AppNavbar")).toBeInTheDocument());
         expect(queryByTestId(/AppNavbarLocalhost/i)).toBeNull();
-    });
 
+    });
+    
     test("the Navbar has the correct backgroundColor", async () => {
         const currentUser = currentUserFixtures.userOnly;
         const systemInfo = systemInfoFixtures.showingBoth;
