@@ -52,8 +52,8 @@ describe("RiderForm tests", () => {
         expect(header).toBeInTheDocument();
     });
 
-    expect(await screen.findByTestId(`${testId}-startTime`)).toBeInTheDocument();
-    expect(screen.getByText(`Start Time`)).toBeInTheDocument();
+    expect(await screen.findByTestId(`${testId}-id`)).toBeInTheDocument();
+    expect(screen.getByText(`Id`)).toBeInTheDocument();
 });
 
   test("that navigate(-1) is called when Cancel is clicked", async () => {

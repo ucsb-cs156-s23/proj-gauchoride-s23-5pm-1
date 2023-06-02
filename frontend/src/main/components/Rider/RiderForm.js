@@ -2,7 +2,7 @@ import React from 'react'
 import { Button, Form } from 'react-bootstrap';
 import { useForm } from 'react-hook-form'
 import { useNavigate } from 'react-router-dom';
-function RiderForm({ initialRiders, submitAction, buttonLabel = "Create" }) {
+function RiderForm({ initialContents, submitAction, buttonLabel = "Create" }) {
 
     
     // Stryker disable all
@@ -11,7 +11,7 @@ function RiderForm({ initialRiders, submitAction, buttonLabel = "Create" }) {
         formState: { errors },
         handleSubmit,
     } = useForm(
-        { defaultValues: initialRiders || {}, }
+        { defaultValues: initialContents || {}, }
     );
     // Stryker enable all
     const navigate = useNavigate();
@@ -22,7 +22,7 @@ function RiderForm({ initialRiders, submitAction, buttonLabel = "Create" }) {
 
         <Form onSubmit={handleSubmit(submitAction)}>
 
-            {initialRiders && (
+            {initialContents && (
                 <Form.Group className="mb-3" >
                     <Form.Label htmlFor="id">Id</Form.Label>
                     <Form.Control
@@ -30,7 +30,7 @@ function RiderForm({ initialRiders, submitAction, buttonLabel = "Create" }) {
                         id="id"
                         type="text"
                         {...register("id")}
-                        value={initialRiders.id}
+                        value={initialContents.id}
                         disabled
                     />
                 </Form.Group>
