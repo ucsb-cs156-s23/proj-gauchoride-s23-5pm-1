@@ -164,7 +164,12 @@ public class UsersController extends ApiController {
 
         user.setWheelchair(!user.getWheelchair());
         userRepository.save(user);
-        return genericMessage("User with id %s has toggled wheelchair status".formatted(id));
+        if (user.getWheelchair()) {
+            return genericMessage("User with id %s has toggled wheelchair status from false to true".formatted(id));
+        }
+        else {
+            return genericMessage("User with id %s has toggled wheelchair status from true to false".formatted(id));
+        }
     }
 
 }

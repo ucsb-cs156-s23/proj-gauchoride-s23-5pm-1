@@ -498,17 +498,6 @@ public class UsersControllerTests extends ControllerTestCase {
           assertEquals(expectedJson, responseString);
   }
 
-
-
-
-
-
-
-
-
-
-
-
   @WithMockUser(roles = { "ADMIN", "USER" })
   @Test
   public void user_can_toggle_wheelchair_status_of_a_user_from_false_to_true() throws Exception {
@@ -541,7 +530,7 @@ public class UsersControllerTests extends ControllerTestCase {
           verify(userRepository, times(1)).save(userAfter);
 
           Map<String, Object> json = responseToJson(response);
-          assertEquals("User with id 15 has toggled wheelchair status", json.get("message"));
+          assertEquals("User with id 15 has toggled wheelchair status from false to true", json.get("message"));
   }
 
   @WithMockUser(roles = { "ADMIN", "USER" })
@@ -576,7 +565,7 @@ public class UsersControllerTests extends ControllerTestCase {
           verify(userRepository, times(1)).save(userAfter);
 
           Map<String, Object> json = responseToJson(response);
-          assertEquals("User with id 15 has toggled wheelchair status", json.get("message"));
+          assertEquals("User with id 15 has toggled wheelchair status from true to false", json.get("message"));
   }
 
   @WithMockUser(roles = { "ADMIN", "USER" })
