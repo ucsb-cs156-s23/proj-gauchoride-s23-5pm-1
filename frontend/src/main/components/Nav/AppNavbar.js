@@ -49,6 +49,16 @@ export default function AppNavbar({ currentUser, systemInfo, doLogout, currentUr
               }
             </Nav>
 
+            <Nav className="mr-auto">
+              {
+                hasRole(currentUser, "ROLE_USER") && (
+                  <NavDropdown title="Rider" id="appnavbar-riders-dropdown" data-testid="appnavbar-riders-dropdown" >
+                    <NavDropdown.Item href="/riders/create">Ride Request</NavDropdown.Item>
+                  </NavDropdown>
+                )
+              }
+            </Nav>
+
             <Nav className="ml-auto">
               {/* This `nav` component contains all navigation items that show up on the right side */}
               {

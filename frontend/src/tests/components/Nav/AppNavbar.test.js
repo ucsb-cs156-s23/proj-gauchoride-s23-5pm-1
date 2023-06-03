@@ -127,6 +127,53 @@ describe("AppNavbar tests", () => {
 
     });
 
+    test("renders the Rider menu correctly for a user", async () => {
+
+        const currentUser = currentUserFixtures.userOnly;
+        const systemInfo = systemInfoFixtures.showingBoth;
+
+        const doLogin = jest.fn();
+
+        const {getByTestId, findByTestId  } = render(
+            <QueryClientProvider client={queryClient}>
+                <MemoryRouter>
+                    <AppNavbar currentUser={currentUser} systemInfo={systemInfo} doLogin={doLogin} />
+                </MemoryRouter>
+            </QueryClientProvider>
+        );
+
+        await findByTestId("appnavbar-riders-dropdown");
+        const dropdown = getByTestId("appnavbar-riders-dropdown");
+        const aElement = dropdown.querySelector("a");
+        expect(aElement).toBeInTheDocument();
+        aElement?.click();
+     
+
+    });
+
+    test("renders the Rider menu correctly for an admin", async () => {
+
+        const currentUser = currentUserFixtures.adminUser;
+        const systemInfo = systemInfoFixtures.showingBoth;
+
+        const doLogin = jest.fn();
+
+        const {getByTestId, findByTestId  } = render(
+            <QueryClientProvider client={queryClient}>
+                <MemoryRouter>
+                    <AppNavbar currentUser={currentUser} systemInfo={systemInfo} doLogin={doLogin} />
+                </MemoryRouter>
+            </QueryClientProvider>
+        );
+
+        await findByTestId("appnavbar-riders-dropdown");
+        const dropdown = getByTestId("appnavbar-riders-dropdown");
+        const aElement = dropdown.querySelector("a");
+        expect(aElement).toBeInTheDocument();
+        aElement?.click();
+
+    });
+
     test("does NOT render the AppNavbarLocalhost when on localhost:8080", async () => {
 
         const currentUser = currentUserFixtures.userOnly;
