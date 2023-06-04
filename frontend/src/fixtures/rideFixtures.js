@@ -1,4 +1,4 @@
-const riderFixtures = {
+const rideFixtures = {
     oneRide:
     [
     {
@@ -42,5 +42,5 @@ const riderFixtures = {
     ]
 }
 
-export {riderFixtures}
+export {rideFixtures}
 

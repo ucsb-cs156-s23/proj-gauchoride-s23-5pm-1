@@ -2,7 +2,7 @@ import React from 'react'
 import { Button, Form } from 'react-bootstrap';
 import { useForm } from 'react-hook-form'
 import { useNavigate } from 'react-router-dom';
-function RiderForm({ initialContents, submitAction, buttonLabel = "Create" }) {
+function RideForm({ initialContents, submitAction, buttonLabel = "Create" }) {
 
     
     // Stryker disable all
@@ -16,7 +16,7 @@ function RiderForm({ initialContents, submitAction, buttonLabel = "Create" }) {
     // Stryker enable all
     const navigate = useNavigate();
 
-    //const testIdPrefix = "RiderForm";
+    //const testIdPrefix = "RideForm";
 
     return (
 
@@ -26,7 +26,7 @@ function RiderForm({ initialContents, submitAction, buttonLabel = "Create" }) {
                 <Form.Group className="mb-3" >
                     <Form.Label htmlFor="id">Id</Form.Label>
                     <Form.Control
-                        data-testid={"RiderForm-id"}
+                        data-testid={"RideForm-id"}
                         id="id"
                         type="text"
                         {...register("id")}
@@ -39,7 +39,7 @@ function RiderForm({ initialContents, submitAction, buttonLabel = "Create" }) {
             <Form.Group className="mb-3" >
                 <Form.Label htmlFor="day">Day</Form.Label>
                 <Form.Control
-                    data-testid={"RiderForm-day"}
+                    data-testid={"RideForm-day"}
                     id="day"
                     type="text"
                     isInvalid={Boolean(errors.day)}
@@ -58,7 +58,7 @@ function RiderForm({ initialContents, submitAction, buttonLabel = "Create" }) {
             <Form.Group className="mb-3" >
                 <Form.Label htmlFor="startTime">Start Time</Form.Label>
                 <Form.Control
-                    data-testid={"RiderForm-startTime"}
+                    data-testid={"RideForm-startTime"}
                     id="startTime"
                     type="text"
                     isInvalid={Boolean(errors.startTime)}
@@ -76,7 +76,7 @@ function RiderForm({ initialContents, submitAction, buttonLabel = "Create" }) {
             <Form.Group className="mb-3" >
                 <Form.Label htmlFor="endTime">End Time</Form.Label>
                 <Form.Control
-                    data-testid={"RiderForm-endTime"}
+                    data-testid={"RideForm-endTime"}
                     id="endTime"
                     type="text"
                     isInvalid={Boolean(errors.endTime)}
@@ -95,7 +95,7 @@ function RiderForm({ initialContents, submitAction, buttonLabel = "Create" }) {
             <Form.Group className="mb-3" >
                 <Form.Label htmlFor="pickupLocation">Pickup Location</Form.Label>
                 <Form.Control
-                    data-testid={"RiderForm-pickupLocation"}
+                    data-testid={"RideForm-pickupLocation"}
                     id="pickupLocation"
                     type="text"
                     isInvalid={Boolean(errors.pickupLocation)}
@@ -114,7 +114,7 @@ function RiderForm({ initialContents, submitAction, buttonLabel = "Create" }) {
             <Form.Group className="mb-3" >
                 <Form.Label htmlFor="dropoffLocation">Dropoff Location</Form.Label>
                 <Form.Control
-                    data-testid={"RiderForm-dropoffLocation"}
+                    data-testid={"RideForm-dropoffLocation"}
                     id="dropoffLocation"
                     type="text"
                     isInvalid={Boolean(errors.dropoffLocation)}
@@ -132,14 +132,14 @@ function RiderForm({ initialContents, submitAction, buttonLabel = "Create" }) {
 
             <Button
                 type="submit"
-                data-testid={"RiderForm-submit"}
+                data-testid={"RideForm-submit"}
             >
                 {buttonLabel}
             </Button>
             <Button
                 variant="Secondary"
                 onClick={() => navigate(-1)}
-                data-testid={"RiderForm-cancel"}
+                data-testid={"RideForm-cancel"}
             >
                 Cancel
             </Button>
@@ -149,4 +149,4 @@ function RiderForm({ initialContents, submitAction, buttonLabel = "Create" }) {
     )
 }
 
-export default RiderForm;
+export default RideForm;
