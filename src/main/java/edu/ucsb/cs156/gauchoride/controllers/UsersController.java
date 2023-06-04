@@ -113,7 +113,12 @@ public class UsersController extends ApiController {
 
         user.setAdmin(!user.getAdmin());
         userRepository.save(user);
-        return genericMessage("User with id %s has toggled admin status".formatted(id));
+        if (user.getAdmin()) {
+            return genericMessage("User with id %s has toggled admin status from false to true".formatted(id));
+        }
+        else {
+            return genericMessage("User with id %s has toggled admin status from true to false".formatted(id));
+        }
     }
 
     @ApiOperation(value = "Toggle the driver field")
@@ -125,7 +130,13 @@ public class UsersController extends ApiController {
 
         user.setDriver(!user.getDriver());
         userRepository.save(user);
-        return genericMessage("User with id %s has toggled driver status".formatted(id));
+        
+        if (user.getDriver()) {
+            return genericMessage("User with id %s has toggled driver status from false to true".formatted(id));
+        }
+        else {
+            return genericMessage("User with id %s has toggled driver status from true to false".formatted(id));
+        }
     }
 
     @ApiOperation(value = "Toggle the rider field")
@@ -137,7 +148,12 @@ public class UsersController extends ApiController {
 
         user.setRider(!user.getRider());
         userRepository.save(user);
-        return genericMessage("User with id %s has toggled rider status".formatted(id));
+        if (user.getRider()) {
+            return genericMessage("User with id %s has toggled rider status from false to true".formatted(id));
+        }
+        else {
+            return genericMessage("User with id %s has toggled rider status from true to false".formatted(id));
+        }
     }
 
 }
