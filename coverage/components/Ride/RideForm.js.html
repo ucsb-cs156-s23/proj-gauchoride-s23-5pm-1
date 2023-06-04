@@ -3,7 +3,7 @@
 <html lang="en">
 
 <head>
-    <title>Code coverage report for components/Rider/RiderForm.js</title>
+    <title>Code coverage report for components/Ride/RideForm.js</title>
     <meta charset="utf-8" />
     <link rel="stylesheet" href="../../prettify.css" />
     <link rel="stylesheet" href="../../base.css" />
@@ -19,7 +19,7 @@
 <body>
 <div class='wrapper'>
     <div class='pad1'>
-        <h1><a href="../../index.html">All files</a> / <a href="index.html">components/Rider</a> RiderForm.js</h1>
+        <h1><a href="../../index.html">All files</a> / <a href="index.html">components/Ride</a> RideForm.js</h1>
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
@@ -226,15 +226,15 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">10x</span>
+<span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">10x</span>
+<span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">10x</span>
+<span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -369,7 +369,7 @@
 import { Button, Form } from 'react-bootstrap';
 import { useForm } from 'react-hook-form'
 import { useNavigate } from 'react-router-dom';
-function RiderForm({ initialContents, submitAction, buttonLabel = "Create" }) {
+function RideForm({ initialContents, submitAction, buttonLabel = "Create" }) {
 &nbsp;
     
     // Stryker disable all
@@ -383,7 +383,7 @@ function RiderForm({ initialContents, submitAction, buttonLabel = "Create" }) {
     // Stryker enable all
     const navigate = useNavigate();
 &nbsp;
-    //const testIdPrefix = "RiderForm";
+    //const testIdPrefix = "RideForm";
 &nbsp;
     return (
 &nbsp;
@@ -393,7 +393,7 @@ function RiderForm({ initialContents, submitAction, buttonLabel = "Create" }) {
                 &lt;Form.Group className="mb-3" &gt;
                     &lt;Form.Label htmlFor="id"&gt;Id&lt;/Form.Label&gt;
                     &lt;Form.Control
-                        data-testid={"RiderForm-id"}
+                        data-testid={"RideForm-id"}
                         id="id"
                         type="text"
                         {...register("id")}
@@ -406,7 +406,7 @@ function RiderForm({ initialContents, submitAction, buttonLabel = "Create" }) {
             &lt;Form.Group className="mb-3" &gt;
                 &lt;Form.Label htmlFor="day"&gt;Day&lt;/Form.Label&gt;
                 &lt;Form.Control
-                    data-testid={"RiderForm-day"}
+                    data-testid={"RideForm-day"}
                     id="day"
                     type="text"
                     isInvalid={Boolean(errors.day)}
@@ -425,7 +425,7 @@ function RiderForm({ initialContents, submitAction, buttonLabel = "Create" }) {
             &lt;Form.Group className="mb-3" &gt;
                 &lt;Form.Label htmlFor="startTime"&gt;Start Time&lt;/Form.Label&gt;
                 &lt;Form.Control
-                    data-testid={"RiderForm-startTime"}
+                    data-testid={"RideForm-startTime"}
                     id="startTime"
                     type="text"
                     isInvalid={Boolean(errors.startTime)}
@@ -443,7 +443,7 @@ function RiderForm({ initialContents, submitAction, buttonLabel = "Create" }) {
             &lt;Form.Group className="mb-3" &gt;
                 &lt;Form.Label htmlFor="endTime"&gt;End Time&lt;/Form.Label&gt;
                 &lt;Form.Control
-                    data-testid={"RiderForm-endTime"}
+                    data-testid={"RideForm-endTime"}
                     id="endTime"
                     type="text"
                     isInvalid={Boolean(errors.endTime)}
@@ -462,7 +462,7 @@ function RiderForm({ initialContents, submitAction, buttonLabel = "Create" }) {
             &lt;Form.Group className="mb-3" &gt;
                 &lt;Form.Label htmlFor="pickupLocation"&gt;Pickup Location&lt;/Form.Label&gt;
                 &lt;Form.Control
-                    data-testid={"RiderForm-pickupLocation"}
+                    data-testid={"RideForm-pickupLocation"}
                     id="pickupLocation"
                     type="text"
                     isInvalid={Boolean(errors.pickupLocation)}
@@ -481,7 +481,7 @@ function RiderForm({ initialContents, submitAction, buttonLabel = "Create" }) {
             &lt;Form.Group className="mb-3" &gt;
                 &lt;Form.Label htmlFor="dropoffLocation"&gt;Dropoff Location&lt;/Form.Label&gt;
                 &lt;Form.Control
-                    data-testid={"RiderForm-dropoffLocation"}
+                    data-testid={"RideForm-dropoffLocation"}
                     id="dropoffLocation"
                     type="text"
                     isInvalid={Boolean(errors.dropoffLocation)}
@@ -499,14 +499,14 @@ function RiderForm({ initialContents, submitAction, buttonLabel = "Create" }) {
 &nbsp;
             &lt;Button
                 type="submit"
-                data-testid={"RiderForm-submit"}
+                data-testid={"RideForm-submit"}
             &gt;
                 {buttonLabel}
             &lt;/Button&gt;
             &lt;Button
                 variant="Secondary"
                 onClick={() =&gt; navigate(-1)}
-                data-testid={"RiderForm-cancel"}
+                data-testid={"RideForm-cancel"}
             &gt;
                 Cancel
             &lt;/Button&gt;
@@ -516,14 +516,14 @@ function RiderForm({ initialContents, submitAction, buttonLabel = "Create" }) {
     )
 }
 &nbsp;
-export default RiderForm;</pre></td></tr></table></pre>
+export default RideForm;</pre></td></tr></table></pre>
 
                 <div class='push'></div><!-- for sticky footer -->
             </div><!-- /wrapper -->
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at Fri Jun 02 2023 19:55:46 GMT-0700 (Pacific Daylight Time)
+                at Sun Jun 04 2023 14:11:02 GMT-0700 (Pacific Daylight Time)
             </div>
         <script src="../../prettify.js"></script>
         <script>
