@@ -47,7 +47,7 @@ public class IndividualRidesControllerTest extends ControllerTestCase {
   @MockBean
   UserRepository userRepository;
 
-  @WithMockUser(roles = { "ADMIN" })
+  @WithMockUser(roles = { "USER" })
   @Test
   public void test_getRides() throws Exception {
       // arrange

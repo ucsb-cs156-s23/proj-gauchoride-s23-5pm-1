@@ -155,7 +155,8 @@ public class IndividualRidesController extends ApiController {
         individualRide.setEndTime(endTime);
         individualRide.setPickupLocation(pickupLocation);
         individualRide.setDropoffLocation(dropoffLocation);
-        individualRide.setAutoRenew(autoRenew);
+        //This auto renew term is not yet implemented yet. It was an idea we had for autorenewing rides to be implemented in the future
+        individualRide.setAutoRenew(autoRenew); 
 
         IndividualRides savedRide = individualRidesRepository.save(individualRide);
         return savedRide;
