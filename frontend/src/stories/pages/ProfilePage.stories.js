@@ -1,6 +1,6 @@
 import React from 'react';
 
-import HomePage from "main/pages/ProfilePage";
+import ProfilePage from "main/pages/ProfilePage";
 
 export default {
     title: 'pages/ProfilePage',
