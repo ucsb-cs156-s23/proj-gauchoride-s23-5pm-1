@@ -40,7 +40,7 @@ import java.time.LocalDateTime;
     IndividualRidesRepository individualRidesRepository;
     
     @ApiOperation(value = &quot;List all individualRides&quot;)
-    // @PreAuthorize(&quot;hasRole('ROLE_USER')&quot;)
+    @PreAuthorize(&quot;hasRole('ROLE_USER')&quot;)
     @GetMapping(&quot;/all&quot;)
     public Iterable&lt;IndividualRides&gt; allIndividualRides() {
 <span class="fc" id="L46">        Iterable&lt;IndividualRides&gt; individualRides = individualRidesRepository.findAll();</span>
@@ -48,7 +48,7 @@ import java.time.LocalDateTime;
     }
 
     @ApiOperation(value = &quot;List all individualRides with driverId&quot;)
-    // @PreAuthorize(&quot;hasRole('ROLE_USER')&quot;)
+    @PreAuthorize(&quot;hasRole('ROLE_USER')&quot;)
     @GetMapping(&quot;/allWithDriverId&quot;)
     public Iterable&lt;IndividualRides&gt; allIndividualRidesWithDriverId( 
         @ApiParam(&quot;driverId&quot;) @RequestParam Long id) {
@@ -65,7 +65,7 @@ import java.time.LocalDateTime;
     }
 
     @ApiOperation(value = &quot;List all individualRides with riderId&quot;)
-    // @PreAuthorize(&quot;hasRole('ROLE_USER')&quot;)
+    @PreAuthorize(&quot;hasRole('ROLE_USER')&quot;)
     @GetMapping(&quot;/allWithRiderId&quot;)
     public Iterable&lt;IndividualRides&gt; allIndividualRidesWithRiderId( 
         @ApiParam(&quot;driverId&quot;) @RequestParam Long id) {
@@ -83,7 +83,7 @@ import java.time.LocalDateTime;
     }
 
     @ApiOperation(value = &quot;Get a single ride&quot;)
-    // @PreAuthorize(&quot;hasRole('ROLE_USER')&quot;)
+    @PreAuthorize(&quot;hasRole('ROLE_USER')&quot;)
     @GetMapping(&quot;&quot;)
     public IndividualRides getById(
             @ApiParam(&quot;id&quot;) @RequestParam Long id) {
@@ -94,7 +94,7 @@ import java.time.LocalDateTime;
     }
 
     @ApiOperation(value = &quot;Delete a ride&quot;)
-    // @PreAuthorize(&quot;hasRole('ROLE_ADMIN')&quot;)
+    @PreAuthorize(&quot;hasRole('ROLE_ADMIN')&quot;)
     @DeleteMapping(&quot;&quot;)
     public Object deleteRide(
             @ApiParam(&quot;id&quot;) @RequestParam Long id) {
@@ -106,7 +106,7 @@ import java.time.LocalDateTime;
     }
 
     @ApiOperation(value = &quot;Update a single ride&quot;)
-    // @PreAuthorize(&quot;hasRole('ROLE_ADMIN')&quot;)
+    @PreAuthorize(&quot;hasRole('ROLE_ADMIN')&quot;)
     @PutMapping(&quot;&quot;)
     public IndividualRides updateIndividualRide(
             @ApiParam(&quot;id&quot;) @RequestParam Long id,
@@ -129,7 +129,7 @@ import java.time.LocalDateTime;
     }
 
     @ApiOperation(value = &quot;Create a new individualRide&quot;)
-    // @PreAuthorize(&quot;hasRole('ROLE_ADMIN')&quot;)
+    @PreAuthorize(&quot;hasRole('ROLE_ADMIN')&quot;)
     @PostMapping(&quot;/post&quot;)
     public IndividualRides postIndividualRide(
         @ApiParam(&quot;tripId&quot;) @RequestParam Long tripId,
@@ -155,10 +155,11 @@ import java.time.LocalDateTime;
 <span class="fc" id="L155">        individualRide.setEndTime(endTime);</span>
 <span class="fc" id="L156">        individualRide.setPickupLocation(pickupLocation);</span>
 <span class="fc" id="L157">        individualRide.setDropoffLocation(dropoffLocation);</span>
-<span class="fc" id="L158">        individualRide.setAutoRenew(autoRenew);</span>
+        //This auto renew term is not yet implemented yet. It was an idea we had for autorenewing rides to be implemented in the future
+<span class="fc" id="L159">        individualRide.setAutoRenew(autoRenew); </span>
 
-<span class="fc" id="L160">        IndividualRides savedRide = individualRidesRepository.save(individualRide);</span>
-<span class="fc" id="L161">        return savedRide;</span>
+<span class="fc" id="L161">        IndividualRides savedRide = individualRidesRepository.save(individualRide);</span>
+<span class="fc" id="L162">        return savedRide;</span>
     }
 }
 
