@@ -18,7 +18,7 @@ export default function UsersTable({ users}) {
     const toggleRiderMutation = useBackendMutation(
         cellToAxiosParamsToggleRider,
         {},
-        ["/api/admin/users"]
+        ["/api/admin/users", "/api/admin/users/riders", "/api/admin/users/drivers"]
     );
     // Stryker enable all 
 
@@ -39,7 +39,7 @@ export default function UsersTable({ users}) {
     const toggleAdminMutation = useBackendMutation(
         cellToAxiosParamsToggleAdmin,
         {},
-        ["/api/admin/users"]
+        ["/api/admin/users", "/api/admin/users/riders", "/api/admin/users/drivers"]
     );
     // Stryker enable all 
 
@@ -62,7 +62,7 @@ export default function UsersTable({ users}) {
     const toggleDriverMutation = useBackendMutation(
         cellToAxiosParamsToggleDriver,
         {},
-        ["/api/admin/users"]
+        ["/api/admin/users", "/api/admin/users/drivers"]
     );
     
     // Stryker enable all

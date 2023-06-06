@@ -1,7 +1,6 @@
 import {React, useState} from "react";
 import BasicLayout from "main/layouts/BasicLayout/BasicLayout";
 import UsersTable from "main/components/Users/UsersTable"
-//import UserCheckbox from "main/components/Users/UserCheckbox"
 
 
 import { useBackend } from "main/utils/useBackend";
@@ -55,7 +54,6 @@ const AdminUsersPage = () => {
         );
         
     var tableContent = isCheckedAll ? allUsers : (isCheckedDrivers ? allDrivers : allRiders);
-    var stringTable = JSON.stringify(tableContent);
     return (
         <BasicLayout>
             <h2>Users</h2>
@@ -88,7 +86,6 @@ const AdminUsersPage = () => {
                 />
                 Riders
             </div>
-            <button>{stringTable}</button>
             <UsersTable users={tableContent} />
         </BasicLayout>
     );

@@ -143,6 +143,25 @@ describe("AdminUsersPage tests", () => {
       
 
     })
+
+    test("Tests Drivers Filter", async ()=>{
+        setupAdminUser();
+        const queryClient = new QueryClient();
+        axiosMock.onGet("/api/admin/users").reply(200, usersFixtures.threeUsers);
+        axiosMock.onGet("/api/admin/users/riders").reply(200, usersFixtures.justRider);
+        axiosMock.onGet("/api/admin/users/drivers").reply(200, usersFixtures.justDriver);
+
+        const { getByText} = render(
+            <QueryClientProvider client={queryClient}>
+                <MemoryRouter>
+                    <AdminUsersPage />
+                </MemoryRouter>
+            </QueryClientProvider>
+        );
+        await waitFor(() => expect(getByText("Phill Conrad")).toBeInTheDocument());
+        
+        const riderCheckbox = screen.getByTestId(`${testId}-cell-row-0-col-toggle-driver-button`);
+    })
 });
 
 
