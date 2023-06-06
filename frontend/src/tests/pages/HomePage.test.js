@@ -42,10 +42,9 @@ describe("HomePage tests", () => {
         expect(getByTestId("header")).toHaveStyle("display: inline-block");
         expect(getByTestId("header")).toHaveStyle("verticalAlign: middle");
 
-        expect(getByTestId("container")).toHaveStyle("margin:0px 20px, backgroundColor:#f5f5f5, padding: 20px");
-
-
-
+        expect(getByTestId("container")).toHaveStyle("margin: 0px 20px");
+        expect(getByTestId("container")).toHaveStyle("backgroundColor:#f5f5f5");
+        expect(getByTestId("container")).toHaveStyle("padding: 20px");
 
     });
 

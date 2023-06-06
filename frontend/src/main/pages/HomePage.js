@@ -4,10 +4,10 @@ export default function HomePage() {
   return (
     <BasicLayout>
       <div className="pt-2">
-        <img data-test-id="UCSBLogo" src="UCSBLogo.png" style={{width: "150px", display: "inline-block", verticalAlign: "middle", margin:"0px 20px"}} alt="UCSB Logo"></img>
-        <h1 data-test-id="header" style={{display: "inline-block", verticalAlign:"middle"}}>Gauchoride</h1>
+        <img data-testid="UCSBLogo" src="UCSBLogo.png" style={{width: "150px", display: "inline-block", verticalAlign: "middle", margin:"0px 20px"}} alt="UCSB Logo"></img>
+        <h1 data-testid="header" style={{display: "inline-block", verticalAlign:"middle"}}>Gauchoride</h1>
 
-        <div data-test-id="container" style={{margin:"0px 20px", backgroundColor:"#f5f5f5", padding: "20px"}}>
+        <div data-testid="container" style={{margin:"0px 20px", backgroundColor:"#f5f5f5", padding: "20px"}}>
           <h3>
             About this application
           </h3>
