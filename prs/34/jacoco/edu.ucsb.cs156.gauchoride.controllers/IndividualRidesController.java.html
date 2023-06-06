@@ -115,51 +115,44 @@ import java.time.LocalDateTime;
 <span class="fc" id="L115">        IndividualRides individualRide = individualRidesRepository.findById(id)</span>
 <span class="fc" id="L116">                .orElseThrow(() -&gt; new EntityNotFoundException(IndividualRides.class, id));</span>
 
-<span class="fc" id="L118">        individualRide.setTripId(incoming.getTripId());</span>
-<span class="fc" id="L119">        individualRide.setDriverId(incoming.getDriverId());</span>
-<span class="fc" id="L120">        individualRide.setRiderIds(incoming.getRiderIds());</span>
-<span class="fc" id="L121">        individualRide.setStartTime(incoming.getStartTime());</span>
-<span class="fc" id="L122">        individualRide.setEndTime(incoming.getEndTime());</span>
-<span class="fc" id="L123">        individualRide.setPickupLocation(incoming.getPickupLocation());</span>
-<span class="fc" id="L124">        individualRide.setDropoffLocation(incoming.getDropoffLocation());</span>
-<span class="fc" id="L125">        individualRide.setAutoRenew(incoming.getAutoRenew());</span>
-<span class="fc" id="L126">        individualRidesRepository.save(individualRide);</span>
+<span class="fc" id="L118">        individualRide.setDriverId(incoming.getDriverId());</span>
+<span class="fc" id="L119">        individualRide.setRiderIds(incoming.getRiderIds());</span>
+<span class="fc" id="L120">        individualRide.setStartTime(incoming.getStartTime());</span>
+<span class="fc" id="L121">        individualRide.setEndTime(incoming.getEndTime());</span>
+<span class="fc" id="L122">        individualRide.setPickupLocation(incoming.getPickupLocation());</span>
+<span class="fc" id="L123">        individualRide.setDropoffLocation(incoming.getDropoffLocation());</span>
+<span class="fc" id="L124">        individualRidesRepository.save(individualRide);</span>
 
-<span class="fc" id="L128">        return individualRide;</span>
+<span class="fc" id="L126">        return individualRide;</span>
     }
 
     @ApiOperation(value = &quot;Create a new individualRide&quot;)
     @PreAuthorize(&quot;hasRole('ROLE_ADMIN')&quot;)
     @PostMapping(&quot;/post&quot;)
     public IndividualRides postIndividualRide(
-        @ApiParam(&quot;tripId&quot;) @RequestParam Long tripId,
         @ApiParam(&quot;driverId&quot;) @RequestParam Long driverId,
         @ApiParam(&quot;riderIds&quot;) @RequestParam Long[] riderIds,
         @ApiParam(&quot;startTime&quot;) @RequestParam String startTimeString,
         @ApiParam(&quot;endTime&quot;) @RequestParam String endTimeString,
         @ApiParam(&quot;pickupLocation&quot;) @RequestParam String pickupLocation,
-        @ApiParam(&quot;dropoffLocation&quot;) @RequestParam String dropoffLocation,
-        @ApiParam(&quot;autoRenew&quot;) @RequestParam Boolean autoRenew
+        @ApiParam(&quot;dropoffLocation&quot;) @RequestParam String dropoffLocation
         )
     {
 
 
-<span class="fc" id="L147">        LocalDateTime startTime = LocalDateTime.parse(startTimeString);</span>
-<span class="fc" id="L148">        LocalDateTime endTime = LocalDateTime.parse(endTimeString);</span>
+<span class="fc" id="L143">        LocalDateTime startTime = LocalDateTime.parse(startTimeString);</span>
+<span class="fc" id="L144">        LocalDateTime endTime = LocalDateTime.parse(endTimeString);</span>
 
-<span class="fc" id="L150">        IndividualRides individualRide = new IndividualRides();</span>
-<span class="fc" id="L151">        individualRide.setTripId(tripId);</span>
-<span class="fc" id="L152">        individualRide.setDriverId(driverId);</span>
-<span class="fc" id="L153">        individualRide.setRiderIds(riderIds);</span>
-<span class="fc" id="L154">        individualRide.setStartTime(startTime);</span>
-<span class="fc" id="L155">        individualRide.setEndTime(endTime);</span>
-<span class="fc" id="L156">        individualRide.setPickupLocation(pickupLocation);</span>
-<span class="fc" id="L157">        individualRide.setDropoffLocation(dropoffLocation);</span>
-        //This auto renew term is not yet implemented yet. It was an idea we had for autorenewing rides to be implemented in the future
-<span class="fc" id="L159">        individualRide.setAutoRenew(autoRenew); </span>
+<span class="fc" id="L146">        IndividualRides individualRide = new IndividualRides();</span>
+<span class="fc" id="L147">        individualRide.setDriverId(driverId);</span>
+<span class="fc" id="L148">        individualRide.setRiderIds(riderIds);</span>
+<span class="fc" id="L149">        individualRide.setStartTime(startTime);</span>
+<span class="fc" id="L150">        individualRide.setEndTime(endTime);</span>
+<span class="fc" id="L151">        individualRide.setPickupLocation(pickupLocation);</span>
+<span class="fc" id="L152">        individualRide.setDropoffLocation(dropoffLocation);</span>
 
-<span class="fc" id="L161">        IndividualRides savedRide = individualRidesRepository.save(individualRide);</span>
-<span class="fc" id="L162">        return savedRide;</span>
+<span class="fc" id="L154">        IndividualRides savedRide = individualRidesRepository.save(individualRide);</span>
+<span class="fc" id="L155">        return savedRide;</span>
     }
 }
 
