@@ -40,7 +40,7 @@ public class IndividualRidesController extends ApiController {
     IndividualRidesRepository individualRidesRepository;
     
     @ApiOperation(value = "List all individualRides")
-    // @PreAuthorize("hasRole('ROLE_USER')")
+    @PreAuthorize("hasRole('ROLE_USER')")
     @GetMapping("/all")
     public Iterable<IndividualRides> allIndividualRides() {
         Iterable<IndividualRides> individualRides = individualRidesRepository.findAll();
@@ -48,7 +48,7 @@ public class IndividualRidesController extends ApiController {
     }
 
     @ApiOperation(value = "List all individualRides with driverId")
-    // @PreAuthorize("hasRole('ROLE_USER')")
+    @PreAuthorize("hasRole('ROLE_USER')")
     @GetMapping("/allWithDriverId")
     public Iterable<IndividualRides> allIndividualRidesWithDriverId( 
         @ApiParam("driverId") @RequestParam Long id) {
@@ -65,7 +65,7 @@ public class IndividualRidesController extends ApiController {
     }
 
     @ApiOperation(value = "List all individualRides with riderId")
-    // @PreAuthorize("hasRole('ROLE_USER')")
+    @PreAuthorize("hasRole('ROLE_USER')")
     @GetMapping("/allWithRiderId")
     public Iterable<IndividualRides> allIndividualRidesWithRiderId( 
         @ApiParam("driverId") @RequestParam Long id) {
@@ -83,7 +83,7 @@ public class IndividualRidesController extends ApiController {
     }
 
     @ApiOperation(value = "Get a single ride")
-    // @PreAuthorize("hasRole('ROLE_USER')")
+    @PreAuthorize("hasRole('ROLE_USER')")
     @GetMapping("")
     public IndividualRides getById(
             @ApiParam("id") @RequestParam Long id) {
@@ -94,7 +94,7 @@ public class IndividualRidesController extends ApiController {
     }
 
     @ApiOperation(value = "Delete a ride")
-    // @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @DeleteMapping("")
     public Object deleteRide(
             @ApiParam("id") @RequestParam Long id) {
@@ -106,7 +106,7 @@ public class IndividualRidesController extends ApiController {
     }
 
     @ApiOperation(value = "Update a single ride")
-    // @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @PutMapping("")
     public IndividualRides updateIndividualRide(
             @ApiParam("id") @RequestParam Long id,
@@ -129,7 +129,7 @@ public class IndividualRidesController extends ApiController {
     }
 
     @ApiOperation(value = "Create a new individualRide")
-    // @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @PostMapping("/post")
     public IndividualRides postIndividualRide(
         @ApiParam("tripId") @RequestParam Long tripId,
