@@ -16,7 +16,7 @@ function RideForm({ initialContents, submitAction, buttonLabel = "Create" }) {
     // Stryker enable all
     const navigate = useNavigate();
 
-    //const testIdPrefix = "RideForm";
+
 
     return (
 
