@@ -49,7 +49,9 @@ describe("ProfilePage tests", () => {
         expect(getByTestId("role-badge-admin")).toBeInTheDocument();
         expect(getByTestId("role-badge-member")).toBeInTheDocument();
         expect(getByText("phtcon@ucsb.edu")).toBeInTheDocument();
-        expect(getByText("N/A")).toBeInTheDocument();
+        expect(getByText("Active Admin")).toBeInTheDocument();
+        expect(getByText("Not a Rider")).toBeInTheDocument();
+        expect(getByText("Not a Driver")).toBeInTheDocument();
     });
     test("renders correctly for Rider user", async () => {
 
@@ -70,7 +72,9 @@ describe("ProfilePage tests", () => {
         // expect(getByTestId("role-badge-admin")).toBeInTheDocument();
         // expect(getByTestId("role-badge-member")).toBeInTheDocument();
         expect(getByText("pconrad.cis@gmail.com")).toBeInTheDocument();
-        expect(getByText("Rider")).toBeInTheDocument();
+        expect(getByText("Not an Admin")).toBeInTheDocument();
+        expect(getByText("Active Rider")).toBeInTheDocument();
+        expect(getByText("Not a Driver")).toBeInTheDocument();
     });
     test("renders correctly for Driver user", async () => {
 
@@ -91,7 +95,9 @@ describe("ProfilePage tests", () => {
         // expect(getByTestId("role-badge-admin")).toBeInTheDocument();
         // expect(getByTestId("role-badge-member")).toBeInTheDocument();
         expect(getByText("pconrad.cis@gmail.com")).toBeInTheDocument();
-        expect(getByText("Driver")).toBeInTheDocument();
+        expect(getByText("Not an Admin")).toBeInTheDocument();
+        expect(getByText("Not a Rider")).toBeInTheDocument();
+        expect(getByText("Active Driver")).toBeInTheDocument();
     });
 });
 

@@ -104,7 +104,9 @@ const apiCurrentUserFixtures = {
             "locale": "en",
             "hostedDomain": null,
             "admin": false,
-            "rider": true
+            "rider": true,
+            "driver": false,
+            "wheelchair": true
         },
         "roles": [
             {

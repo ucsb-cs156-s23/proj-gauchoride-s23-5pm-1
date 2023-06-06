@@ -12,7 +12,7 @@ const ProfilePage = () => {
   }
 
   const { email, pictureUrl, fullName } = currentUser.root.user;
-//   const emailVerified = currentUser.root.user.emailVerified;
+
 
   return (
     <BasicLayout>
@@ -26,26 +26,32 @@ const ProfilePage = () => {
         </Col>
         <Col md>
           <h2>{fullName}</h2>
-          {/* This is supposed to be pronouns */}
-          {/* <p className="lead text-muted">{currentUser.root.user.emailVerified ? "Yes": ""}</p> */}
-          {/* <p className="lead text-muted">{email}</p> */}
+          {/* FUTURE: Pronouns go here, if pronoun field is null, add endpoint for user to modify*/}
           <RoleBadge role={"ROLE_USER"} currentUser={currentUser} />
           <RoleBadge role={"ROLE_MEMBER"} currentUser={currentUser} />
           <RoleBadge role={"ROLE_ADMIN"} currentUser={currentUser} />
+          <p style={{ color: 'rgba(128, 128, 128, 0.5)' }}>
+          Please contact an admin if any of these parameters are incorrect
+          </p>
         </Col>
       </Row>
       <Row className="text-left">
         <div>
             <h4>Email:</h4>
             <p>{email}</p>
-            <h4>Role:</h4>
+            <h4>Admin Status:</h4>
+            <p>
+              {currentUser.root.user.admin ? "Active Admin" : "Not an Admin"}
+            </p>
+            <h4>Rider Status:</h4>
             <p>
             {currentUser.root.user.rider
-              ? "Rider"
-              : currentUser.root.user.driver
-              ? "Driver"
-              : "N/A"}
+              ? "Active Rider" : "Not a Rider"}
             </p>
+            <h4>Driver Status:</h4>
+            <p>{currentUser.root.user.driver ? "Active Driver" : "Not a Driver" }</p>
+
+            {/*FUTURE: Include Wheelchair status in this page. Add toggle functionality*/}
         </div>
       </Row>
     </BasicLayout>
