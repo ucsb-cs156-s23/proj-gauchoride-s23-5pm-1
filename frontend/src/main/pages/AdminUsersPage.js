@@ -39,7 +39,7 @@ const AdminUsersPage = () => {
     const { data: allRiders, error: __error1, status: __status1 } =
         useBackend(
             // Stryker disable next-line all : don't test internal caching of React Query
-            ["/api/admin/users"],
+            ["/api/admin/users/riders"],
             // Stryker disable next-line StringLiteral,ObjectLiteral : since "GET" is default, "" is an equivalent mutation
             { method: "GET", url: "/api/admin/users/riders" },
             []
@@ -48,14 +48,14 @@ const AdminUsersPage = () => {
     const { data: allDrivers, error: _error2, status: _statu2 } =
         useBackend(
             // Stryker disable next-line all : don't test internal caching of React Query
-            ["/api/admin/users"],
+            ["/api/admin/users/drivers"],
             // Stryker disable next-line StringLiteral,ObjectLiteral : since "GET" is default, "" is an equivalent mutation
             { method: "GET", url: "/api/admin/users/drivers" },
             []
         );
         
     var tableContent = isCheckedAll ? allUsers : (isCheckedDrivers ? allDrivers : allRiders);
-
+    var stringTable = JSON.stringify(tableContent);
     return (
         <BasicLayout>
             <h2>Users</h2>
@@ -88,6 +88,7 @@ const AdminUsersPage = () => {
                 />
                 Riders
             </div>
+            <button>{stringTable}</button>
             <UsersTable users={tableContent} />
         </BasicLayout>
     );
