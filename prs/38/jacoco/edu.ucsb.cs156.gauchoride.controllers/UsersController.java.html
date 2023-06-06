@@ -157,13 +157,14 @@ import io.swagger.annotations.ApiParam;
     }
 
     @ApiOperation(value = &quot;Change the pronouns field&quot;)
+    @PreAuthorize(&quot;hasRole('ROLE_USER')&quot;)
     @PostMapping(&quot;/changePronouns&quot;)
     public Object changePronouns( @ApiParam(&quot;pronouns&quot;) @RequestParam String pronouns){
-<span class="fc" id="L162">        User user = super.getCurrentUser().getUser();</span>
+<span class="fc" id="L163">        User user = super.getCurrentUser().getUser();</span>
 
-<span class="fc" id="L164">        user.setPronouns(pronouns);</span>
-<span class="fc" id="L165">        userRepository.save(user);</span>
-<span class="fc" id="L166">        return genericMessage(&quot;User has changed pronouns to %s&quot;.formatted(pronouns));</span>
+<span class="fc" id="L165">        user.setPronouns(pronouns);</span>
+<span class="fc" id="L166">        userRepository.save(user);</span>
+<span class="fc" id="L167">        return genericMessage(&quot;User has changed pronouns to %s&quot;.formatted(pronouns));</span>
     }
 
 }
