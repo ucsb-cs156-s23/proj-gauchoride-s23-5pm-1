@@ -21,13 +21,10 @@ public class IndividualRides {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private long id;
-  private Long tripId;
   private Long driverId;
   private Long[] riderIds;
-
   private LocalDateTime startTime;
   private LocalDateTime endTime;
   private String pickupLocation;
   private String dropoffLocation;
-  private boolean autoRenew;
 }

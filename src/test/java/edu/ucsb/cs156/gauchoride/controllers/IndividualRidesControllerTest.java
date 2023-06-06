@@ -58,14 +58,12 @@ public class IndividualRidesControllerTest extends ControllerTestCase {
 
       IndividualRides indivudialRide = IndividualRides.builder()
         .id(7)
-        .tripId(12L)
         .driverId(1L)
         .riderIds(riderIds)
         .startTime(startTime)
         .endTime(endTime)
         .pickupLocation("Phelps")
         .dropoffLocation("Broida")
-        .autoRenew(false)
         .build();
 
       when(individualRidesRepository.findById(eq(7L))).thenReturn(Optional.of(indivudialRide));
@@ -112,14 +110,12 @@ public class IndividualRidesControllerTest extends ControllerTestCase {
     
           IndividualRides individualRide = IndividualRides.builder()
             .id(7)
-            .tripId(12L)
             .driverId(1L)
             .riderIds(riderIds)
             .startTime(startTime)
             .endTime(endTime)
             .pickupLocation("Phelps")
             .dropoffLocation("Broida")
-            .autoRenew(false)
             .build();
 
           when(individualRidesRepository.findById(eq(15L))).thenReturn(Optional.of(individualRide));
@@ -156,25 +152,21 @@ public class IndividualRidesControllerTest extends ControllerTestCase {
           Long riderIds[] = {1L,2L,3L};
     
           IndividualRides individualRide1 = IndividualRides.builder()
-            .tripId(12L)
             .driverId(1L)
             .riderIds(riderIds)
             .startTime(startTime)
             .endTime(endTime)
             .pickupLocation("Phelps")
             .dropoffLocation("Broida")
-            .autoRenew(false)
             .build();
 
             IndividualRides individualRide2 = IndividualRides.builder()
-              .tripId(12L)
               .driverId(12L)
               .riderIds(riderIds)
               .startTime(startTime)
               .endTime(endTime)
               .pickupLocation("Phelps1")
               .dropoffLocation("Broida1")
-              .autoRenew(false)
               .build();
 
           ArrayList<IndividualRides> expectedRides = new ArrayList<>();
@@ -204,25 +196,21 @@ public class IndividualRidesControllerTest extends ControllerTestCase {
           Long riderIds[] = {1L,2L,3L};
     
           IndividualRides individualRide1 = IndividualRides.builder()
-            .tripId(12L)
             .driverId(1L)
             .riderIds(riderIds)
             .startTime(startTime)
             .endTime(endTime)
             .pickupLocation("Phelps")
             .dropoffLocation("Broida")
-            .autoRenew(false)
             .build();
 
             IndividualRides individualRide2 = IndividualRides.builder()
-              .tripId(12L)
               .driverId(12L)
               .riderIds(riderIds)
               .startTime(startTime)
               .endTime(endTime)
               .pickupLocation("Phelps1")
               .dropoffLocation("Broida1")
-              .autoRenew(false)
               .build();
 
           ArrayList<IndividualRides> expectedRides = new ArrayList<>();
@@ -253,25 +241,21 @@ public class IndividualRidesControllerTest extends ControllerTestCase {
           Long riderIds2[] = {12L,22L,32L};
     
           IndividualRides individualRide1 = IndividualRides.builder()
-            .tripId(12L)
             .driverId(1L)
             .riderIds(riderIds1)
             .startTime(startTime)
             .endTime(endTime)
             .pickupLocation("Phelps")
             .dropoffLocation("Broida")
-            .autoRenew(false)
             .build();
 
           IndividualRides individualRide2 = IndividualRides.builder()
-            .tripId(12L)
             .driverId(12L)
             .riderIds(riderIds2)
             .startTime(startTime)
             .endTime(endTime)
             .pickupLocation("Phelps1")
             .dropoffLocation("Broida1")
-            .autoRenew(false)
             .build();
 
           ArrayList<IndividualRides> expectedRides = new ArrayList<>();
@@ -300,14 +284,12 @@ public class IndividualRidesControllerTest extends ControllerTestCase {
       Long riderIds[] = {1L,2L,3L};
 
       IndividualRides individualRide1 = IndividualRides.builder()
-        .tripId(12L)
         .driverId(1L)
         .riderIds(riderIds)
         .startTime(startTime)
         .endTime(endTime)
         .pickupLocation("Phelps")
         .dropoffLocation("Broida")
-        .autoRenew(true)
         .build();
 
       when(individualRidesRepository.save(eq(individualRide1))).thenReturn(individualRide1);
@@ -315,14 +297,12 @@ public class IndividualRidesControllerTest extends ControllerTestCase {
       // act
       MvcResult response = mockMvc.perform(
         post("/api/individualRides/post")
-            .param("tripId", "12")
             .param("driverId", "1")
             .param("riderIds", "1", "2", "3")
             .param("startTimeString", "2023-05-30T21:43:43.349")
             .param("endTimeString", "2023-05-30T21:43:43.349")
             .param("pickupLocation", "Phelps")
             .param("dropoffLocation", "Broida")
-            .param("autoRenew", "true")
             .with(csrf()))
       .andExpect(status().isOk())
       .andReturn();
@@ -349,25 +329,21 @@ public class IndividualRidesControllerTest extends ControllerTestCase {
     Long riderIds2[] = {12L,22L,32L};
 
     IndividualRides individualRide = IndividualRides.builder()
-      .tripId(12L)
       .driverId(1L)
       .riderIds(riderIds1)
       .startTime(startTime)
       .endTime(endTime)
       .pickupLocation("Phelps")
       .dropoffLocation("Broida")
-      .autoRenew(false)
       .build();
 
     IndividualRides individualRideEdited = IndividualRides.builder()
-      .tripId(22L)
       .driverId(12L)
       .riderIds(riderIds2)
       .startTime(startTime1)
       .endTime(endTime1)
       .pickupLocation("Phelps1")
       .dropoffLocation("Broida1")
-      .autoRenew(true)
       .build();
 
     String requestBody = mapper.writeValueAsString(individualRideEdited);
@@ -421,14 +397,12 @@ public class IndividualRidesControllerTest extends ControllerTestCase {
 
     IndividualRides editedRide = IndividualRides.builder()
       .id(7)
-      .tripId(12L)
       .driverId(1L)
       .riderIds(riderIds)
       .startTime(startTime)
       .endTime(endTime)
       .pickupLocation("Phelps")
       .dropoffLocation("Broida")
-      .autoRenew(false)
       .build();
 
     String requestBody = mapper.writeValueAsString(editedRide);

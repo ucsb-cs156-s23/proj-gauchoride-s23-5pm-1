@@ -115,14 +115,12 @@ public class IndividualRidesController extends ApiController {
         IndividualRides individualRide = individualRidesRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException(IndividualRides.class, id));
 
-        individualRide.setTripId(incoming.getTripId());
         individualRide.setDriverId(incoming.getDriverId());
         individualRide.setRiderIds(incoming.getRiderIds());
         individualRide.setStartTime(incoming.getStartTime());
         individualRide.setEndTime(incoming.getEndTime());
         individualRide.setPickupLocation(incoming.getPickupLocation());
         individualRide.setDropoffLocation(incoming.getDropoffLocation());
-        individualRide.setAutoRenew(incoming.getAutoRenew());
         individualRidesRepository.save(individualRide);
 
         return individualRide;
@@ -132,14 +130,12 @@ public class IndividualRidesController extends ApiController {
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @PostMapping("/post")
     public IndividualRides postIndividualRide(
-        @ApiParam("tripId") @RequestParam Long tripId,
         @ApiParam("driverId") @RequestParam Long driverId,
         @ApiParam("riderIds") @RequestParam Long[] riderIds,
         @ApiParam("startTime") @RequestParam String startTimeString,
         @ApiParam("endTime") @RequestParam String endTimeString,
         @ApiParam("pickupLocation") @RequestParam String pickupLocation,
-        @ApiParam("dropoffLocation") @RequestParam String dropoffLocation,
-        @ApiParam("autoRenew") @RequestParam Boolean autoRenew
+        @ApiParam("dropoffLocation") @RequestParam String dropoffLocation
         )
     {
 
@@ -148,15 +144,12 @@ public class IndividualRidesController extends ApiController {
         LocalDateTime endTime = LocalDateTime.parse(endTimeString);
 
         IndividualRides individualRide = new IndividualRides();
-        individualRide.setTripId(tripId);
         individualRide.setDriverId(driverId);
         individualRide.setRiderIds(riderIds);
         individualRide.setStartTime(startTime);
         individualRide.setEndTime(endTime);
         individualRide.setPickupLocation(pickupLocation);
         individualRide.setDropoffLocation(dropoffLocation);
-        //This auto renew term is not yet implemented yet. It was an idea we had for autorenewing rides to be implemented in the future
-        individualRide.setAutoRenew(autoRenew); 
 
         IndividualRides savedRide = individualRidesRepository.save(individualRide);
         return savedRide;
