@@ -65,7 +65,7 @@ public class IndividualRidesController extends ApiController {
     }
 
     @ApiOperation(value = "List all individualRides with riderId")
-    @PreAuthorize("hasRole('ROLE_USER')")
+@PreAuthorize("hasRole('ROLE_DRIVER') || hasRole('ROLE_ADMIN') || hasRole('ROLE_RIDER')")
     @GetMapping("/allWithRiderId")
     public Iterable<IndividualRides> allIndividualRidesWithRiderId( 
         @ApiParam("driverId") @RequestParam Long id) {
