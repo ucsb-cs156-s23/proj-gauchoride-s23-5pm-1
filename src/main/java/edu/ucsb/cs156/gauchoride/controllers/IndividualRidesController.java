@@ -83,7 +83,7 @@ public class IndividualRidesController extends ApiController {
     }
 
     @ApiOperation(value = "Get a single ride")
-    @PreAuthorize("hasRole('ROLE_USER')")
+@PreAuthorize("hasRole('ROLE_DRIVER') || hasRole('ROLE_ADMIN') || hasRole('ROLE_RIDER')")
     @GetMapping("")
     public IndividualRides getById(
             @ApiParam("id") @RequestParam Long id) {
