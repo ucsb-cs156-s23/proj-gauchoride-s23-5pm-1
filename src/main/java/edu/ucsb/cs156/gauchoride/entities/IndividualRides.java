@@ -22,7 +22,7 @@ public class IndividualRides {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private long id;
   private Long driverId;
-  private Long[] riderIds;
+  private Long riderId;
   private LocalDateTime startTime;
   private LocalDateTime endTime;
   private String pickupLocation;

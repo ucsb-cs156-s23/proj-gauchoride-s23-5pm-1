@@ -68,14 +68,13 @@ public class IndividualRidesController extends ApiController {
 @PreAuthorize("hasRole('ROLE_DRIVER') || hasRole('ROLE_ADMIN') || hasRole('ROLE_RIDER')")
     @GetMapping("/allWithRiderId")
     public Iterable<IndividualRides> allIndividualRidesWithRiderId( 
-        @ApiParam("driverId") @RequestParam Long id) {
+        @ApiParam("riderId") @RequestParam Long id) {
 
         Iterable<IndividualRides> individualRides = individualRidesRepository.findAll();
         List<IndividualRides> filteredList = new ArrayList<>();
 
         for(IndividualRides ride : individualRides){
-            List<Long> riderIds = Arrays.asList(ride.getRiderIds());
-            if(riderIds.contains(id))
+            if(ride.getRiderId() == id)
                 filteredList.add(ride);
         }
 
@@ -116,7 +115,7 @@ public class IndividualRidesController extends ApiController {
                 .orElseThrow(() -> new EntityNotFoundException(IndividualRides.class, id));
 
         individualRide.setDriverId(incoming.getDriverId());
-        individualRide.setRiderIds(incoming.getRiderIds());
+        individualRide.setRiderId(incoming.getRiderId());
         individualRide.setStartTime(incoming.getStartTime());
         individualRide.setEndTime(incoming.getEndTime());
         individualRide.setPickupLocation(incoming.getPickupLocation());
@@ -131,21 +130,19 @@ public class IndividualRidesController extends ApiController {
     @PostMapping("/post")
     public IndividualRides postIndividualRide(
         @ApiParam("driverId") @RequestParam Long driverId,
-        @ApiParam("riderIds") @RequestParam Long[] riderIds,
+        @ApiParam("riderId") @RequestParam Long riderId,
         @ApiParam("startTime") @RequestParam String startTimeString,
         @ApiParam("endTime") @RequestParam String endTimeString,
         @ApiParam("pickupLocation") @RequestParam String pickupLocation,
         @ApiParam("dropoffLocation") @RequestParam String dropoffLocation
         )
     {
-
-
         LocalDateTime startTime = LocalDateTime.parse(startTimeString);
         LocalDateTime endTime = LocalDateTime.parse(endTimeString);
 
         IndividualRides individualRide = new IndividualRides();
         individualRide.setDriverId(driverId);
-        individualRide.setRiderIds(riderIds);
+        individualRide.setRiderId(riderId);
         individualRide.setStartTime(startTime);
         individualRide.setEndTime(endTime);
         individualRide.setPickupLocation(pickupLocation);

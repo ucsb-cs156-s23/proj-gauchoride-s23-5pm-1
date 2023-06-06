@@ -47,19 +47,17 @@ public class IndividualRidesControllerTest extends ControllerTestCase {
   @MockBean
   UserRepository userRepository;
 
-  @WithMockUser(roles = { "USER" })
+  @WithMockUser(roles = { "ADMIN", "RIDER", "DRIVER"})
   @Test
   public void test_getRides() throws Exception {
       // arrange
       LocalDateTime startTime =  LocalDateTime.parse("2023-05-30T21:43:43.349");
       LocalDateTime endTime =  LocalDateTime.parse("2023-05-30T21:43:43.349");
       
-      Long riderIds[] = {1L,2L,3L};
-
       IndividualRides indivudialRide = IndividualRides.builder()
         .id(7)
         .driverId(1L)
-        .riderIds(riderIds)
+        .riderId(2L)
         .startTime(startTime)
         .endTime(endTime)
         .pickupLocation("Phelps")
@@ -106,12 +104,12 @@ public class IndividualRidesControllerTest extends ControllerTestCase {
           LocalDateTime startTime =  LocalDateTime.parse("2023-05-30T21:43:43.349");
           LocalDateTime endTime =  LocalDateTime.parse("2023-05-30T21:43:43.349");
           
-          Long riderIds[] = {1L,2L,3L};
+          Long riderId = 2L;
     
           IndividualRides individualRide = IndividualRides.builder()
             .id(7)
             .driverId(1L)
-            .riderIds(riderIds)
+            .riderId(riderId)
             .startTime(startTime)
             .endTime(endTime)
             .pickupLocation("Phelps")
@@ -134,14 +132,14 @@ public class IndividualRidesControllerTest extends ControllerTestCase {
           assertEquals("Ride with id 15 deleted", json.get("message"));
   }
 
-  @WithMockUser(roles = { "USER" })
+  @WithMockUser(roles = { "DRIVER", "ADMIN", "RIDER" })
   @Test
   public void logged_in_users_can_get_all() throws Exception {
           mockMvc.perform(get("/api/individualRides/all"))
                           .andExpect(status().is(200)); // logged
   }
 
-  @WithMockUser(roles = { "USER" })
+  @WithMockUser(roles = { "DRIVER", "ADMIN", "RIDER" })
   @Test
   public void logged_in_user_can_get_all_rides() throws Exception {
 
@@ -149,11 +147,11 @@ public class IndividualRidesControllerTest extends ControllerTestCase {
           LocalDateTime startTime =  LocalDateTime.parse("2023-05-30T21:43:43.349");
           LocalDateTime endTime =  LocalDateTime.parse("2023-05-30T21:43:43.349");
           
-          Long riderIds[] = {1L,2L,3L};
+          Long riderId = 2L;
     
           IndividualRides individualRide1 = IndividualRides.builder()
             .driverId(1L)
-            .riderIds(riderIds)
+            .riderId(riderId)
             .startTime(startTime)
             .endTime(endTime)
             .pickupLocation("Phelps")
@@ -162,7 +160,7 @@ public class IndividualRidesControllerTest extends ControllerTestCase {
 
             IndividualRides individualRide2 = IndividualRides.builder()
               .driverId(12L)
-              .riderIds(riderIds)
+              .riderId(riderId)
               .startTime(startTime)
               .endTime(endTime)
               .pickupLocation("Phelps1")
@@ -185,7 +183,7 @@ public class IndividualRidesControllerTest extends ControllerTestCase {
           assertEquals(expectedJson, responseString);
   }
 
-  @WithMockUser(roles = { "USER" })
+  @WithMockUser(roles = { "DRIVER", "ADMIN", "RIDER" })
   @Test
   public void logged_in_user_can_get_all_rides_with_driver_id() throws Exception {
 
@@ -193,25 +191,16 @@ public class IndividualRidesControllerTest extends ControllerTestCase {
           LocalDateTime startTime =  LocalDateTime.parse("2023-05-30T21:43:43.349");
           LocalDateTime endTime =  LocalDateTime.parse("2023-05-30T21:43:43.349");
           
-          Long riderIds[] = {1L,2L,3L};
+          Long riderId = 2L;
     
           IndividualRides individualRide1 = IndividualRides.builder()
             .driverId(1L)
-            .riderIds(riderIds)
+            .riderId(riderId)
             .startTime(startTime)
             .endTime(endTime)
             .pickupLocation("Phelps")
             .dropoffLocation("Broida")
             .build();
-
-            IndividualRides individualRide2 = IndividualRides.builder()
-              .driverId(12L)
-              .riderIds(riderIds)
-              .startTime(startTime)
-              .endTime(endTime)
-              .pickupLocation("Phelps1")
-              .dropoffLocation("Broida1")
-              .build();
 
           ArrayList<IndividualRides> expectedRides = new ArrayList<>();
           expectedRides.add(individualRide1);
@@ -229,7 +218,7 @@ public class IndividualRidesControllerTest extends ControllerTestCase {
           assertEquals(expectedJson, responseString);
   }
 
-  @WithMockUser(roles = { "USER" })
+  @WithMockUser(roles = { "DRIVER", "ADMIN", "RIDER" })
   @Test
   public void logged_in_user_can_get_all_rides_with_rider_id() throws Exception {
 
@@ -237,25 +226,15 @@ public class IndividualRidesControllerTest extends ControllerTestCase {
           LocalDateTime startTime =  LocalDateTime.parse("2023-05-30T21:43:43.349");
           LocalDateTime endTime =  LocalDateTime.parse("2023-05-30T21:43:43.349");
           
-          Long riderIds1[] = {1L,2L,3L};
-          Long riderIds2[] = {12L,22L,32L};
+          Long riderId1 = 1L;
     
           IndividualRides individualRide1 = IndividualRides.builder()
             .driverId(1L)
-            .riderIds(riderIds1)
+            .riderId(riderId1)
             .startTime(startTime)
             .endTime(endTime)
             .pickupLocation("Phelps")
             .dropoffLocation("Broida")
-            .build();
-
-          IndividualRides individualRide2 = IndividualRides.builder()
-            .driverId(12L)
-            .riderIds(riderIds2)
-            .startTime(startTime)
-            .endTime(endTime)
-            .pickupLocation("Phelps1")
-            .dropoffLocation("Broida1")
             .build();
 
           ArrayList<IndividualRides> expectedRides = new ArrayList<>();
@@ -281,11 +260,11 @@ public class IndividualRidesControllerTest extends ControllerTestCase {
       LocalDateTime startTime =  LocalDateTime.parse("2023-05-30T21:43:43.349");
       LocalDateTime endTime =  LocalDateTime.parse("2023-05-30T21:43:43.349");
       
-      Long riderIds[] = {1L,2L,3L};
+      Long riderId = 2L;
 
       IndividualRides individualRide1 = IndividualRides.builder()
         .driverId(1L)
-        .riderIds(riderIds)
+        .riderId(riderId)
         .startTime(startTime)
         .endTime(endTime)
         .pickupLocation("Phelps")
@@ -298,7 +277,7 @@ public class IndividualRidesControllerTest extends ControllerTestCase {
       MvcResult response = mockMvc.perform(
         post("/api/individualRides/post")
             .param("driverId", "1")
-            .param("riderIds", "1", "2", "3")
+            .param("riderId", "2")
             .param("startTimeString", "2023-05-30T21:43:43.349")
             .param("endTimeString", "2023-05-30T21:43:43.349")
             .param("pickupLocation", "Phelps")
@@ -315,7 +294,7 @@ public class IndividualRidesControllerTest extends ControllerTestCase {
       assertEquals(expectedJson, responseString);
   }
 
-  @WithMockUser(roles = { "ADMIN", "USER" })
+  @WithMockUser(roles = { "ADMIN" })
   @Test
   public void admin_can_edit_an_existing_ride() throws Exception {
     // arrange
@@ -325,12 +304,12 @@ public class IndividualRidesControllerTest extends ControllerTestCase {
     LocalDateTime startTime1 =  LocalDateTime.parse("2023-05-30T21:45:43.349");
     LocalDateTime endTime1 =  LocalDateTime.parse("2023-05-30T21:45:43.349");
     
-    Long riderIds1[] = {1L,2L,3L};
-    Long riderIds2[] = {12L,22L,32L};
+    Long riderId1 = 2L;
+    Long riderId2 = 3L;
 
     IndividualRides individualRide = IndividualRides.builder()
       .driverId(1L)
-      .riderIds(riderIds1)
+      .riderId(riderId1)
       .startTime(startTime)
       .endTime(endTime)
       .pickupLocation("Phelps")
@@ -339,7 +318,7 @@ public class IndividualRidesControllerTest extends ControllerTestCase {
 
     IndividualRides individualRideEdited = IndividualRides.builder()
       .driverId(12L)
-      .riderIds(riderIds2)
+      .riderId(riderId2)
       .startTime(startTime1)
       .endTime(endTime1)
       .pickupLocation("Phelps1")
@@ -366,7 +345,7 @@ public class IndividualRidesControllerTest extends ControllerTestCase {
     assertEquals(requestBody, responseString);
   }
 
-  @WithMockUser(roles = { "ADMIN", "USER" })
+  @WithMockUser(roles = { "ADMIN" })
   @Test
   public void admin_tries_to_delete_non_existant_ride_and_gets_right_error_message()
     throws Exception {
@@ -386,19 +365,19 @@ public class IndividualRidesControllerTest extends ControllerTestCase {
     assertEquals("IndividualRides with id 15 not found", json.get("message"));
   }
 
-  @WithMockUser(roles = { "ADMIN", "USER" })
+  @WithMockUser(roles = { "ADMIN" })
   @Test
   public void admin_cannot_edit_individualRide_that_does_not_exist() throws Exception {
     // arrange
     LocalDateTime startTime =  LocalDateTime.parse("2023-05-30T21:43:43.349");
     LocalDateTime endTime =  LocalDateTime.parse("2023-05-30T21:43:43.349");
     
-    Long riderIds[] = {1L,2L,3L};
+    Long riderId = 2L;
 
     IndividualRides editedRide = IndividualRides.builder()
       .id(7)
       .driverId(1L)
-      .riderIds(riderIds)
+      .riderId(riderId)
       .startTime(startTime)
       .endTime(endTime)
       .pickupLocation("Phelps")
