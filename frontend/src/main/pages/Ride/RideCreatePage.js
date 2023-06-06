@@ -3,19 +3,15 @@ import RideForm from "main/components/Ride/RideForm";
 import { Navigate } from 'react-router-dom'
 import { useBackendMutation } from "main/utils/useBackend";
 import { toast } from "react-toastify";
-import { useCurrentUser } from "main/utils/currentUser";
+
 
 export default function RideCreatePage() {
-
-  const { data: ridess } = useCurrentUser();
-
 
 
   const objectToAxiosParams = (ride) => ({
     url: "/api/rides/post",
     method: "POST",
     params: {
-      rideId: ridess.root.user.id,
       day: ride.day,
       startTime: ride.startTime,
       endTime: ride.endTime,
@@ -26,7 +22,7 @@ export default function RideCreatePage() {
   });
 
   const onSuccess = (ride) => {
-    toast(`New Ride Created - id: ${ride.id} rideId: ${ridess.root.user.id}`);
+    toast(`New Ride Created - id: ${ride.id}`);
   }
 
   const mutation = useBackendMutation(

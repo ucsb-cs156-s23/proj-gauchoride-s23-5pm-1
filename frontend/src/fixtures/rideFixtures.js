@@ -4,8 +4,8 @@ const rideFixtures = {
     {
         "id":1,
         "day":"Monday",
-        "startTime":"3:30pm",
-        "endTime":"4:30pm",
+        "startTime": "3:30PM",
+        "endTime": "4:30PM",
         "pickupLocation":"San Joaquin",
         "dropoffLocation":"Library"
     }
@@ -16,8 +16,8 @@ const rideFixtures = {
         {
         "id":2,
         "day":"Tuesday",
-        "startTime":"4:30pm",
-        "endTime":"5:30pm",
+        "startTime": "4:30PM",
+        "endTime": "5:30PM",
         "pickupLocation":"San Clemente",
         "dropoffLocation":"Music Building",
 
@@ -25,8 +25,8 @@ const rideFixtures = {
         {
         "id":3,
         "day":"Wednesday",
-        "startTime":"10:00am",
-        "endTime":"11:00pm",
+        "startTime": "10:00PM",
+        "endTime": "11:00PM",
         "pickupLocation":"Sierra Madre",
         "dropoffLocation":"Phelps Hall",
     
@@ -34,8 +34,8 @@ const rideFixtures = {
         {
         "id":4,
         "day":"Thursday",
-        "startTime":"7:30pm",
-        "endTime":"8:30pm",
+        "startTime": "7:30PM",
+        "endTime": "8:30PM",
         "pickupLocation":"Santa Ynez",
         "dropoffLocation":"Girvetz Hall",
         }

@@ -1,4 +1,4 @@
-port { render, waitFor, fireEvent } from "@testing-library/react";
+import { render, waitFor, fireEvent } from "@testing-library/react";
 import RideCreatePage from "main/pages/Ride/RideCreatePage";
 import { QueryClient, QueryClientProvider } from "react-query";
 import { MemoryRouter } from "react-router-dom";
@@ -55,10 +55,9 @@ describe("RideCreatePage tests", () => {
         const queryClient = new QueryClient();
         const ride = {
             id:17,
-            rideId:3,
             day:"Tuesday",
-            startTime:"4:30pm",
-            endTime:"5:30pm",
+            startTime:"4:30PM",
+            endTime:"5:30PM",
             pickupLocation:"San Clemente",
             dropoffLocation:"Music Building",
         };
@@ -85,8 +84,8 @@ describe("RideCreatePage tests", () => {
         const submitButton = getByTestId("RideForm-submit");
 
         fireEvent.change(dayField, { target: { value: 'Tuesday' } });
-        fireEvent.change(startTimeField, { target: { value: '4:30pm' } });
-        fireEvent.change(endTimeField, { target: { value: '5:30pm' } });
+        fireEvent.change(startTimeField, { target: { value: '4:30PM' } });
+        fireEvent.change(endTimeField, { target: { value: '5:30PM' } });
         fireEvent.change(pickupLocationField, { target: { value: 'San Clemente' } });
         fireEvent.change(dropoffLocationField, { target: { value: 'Music Building' } });
 
@@ -99,15 +98,14 @@ describe("RideCreatePage tests", () => {
 
         expect(axiosMock.history.post[0].params).toEqual(
             {
-                "rideId":2,
                 "day":"Tuesday",
-                "startTime":"4:30pm",
-                "endTime":"5:30pm",
+                "startTime": "4:30PM",
+                "endTime": "5:30PM",
                 "pickupLocation":"San Clemente",
                 "dropoffLocation":"Music Building",
         });
 
-        expect(mockToast).toBeCalledWith("New Ride Created - id: 17 rideId: 2");
+        expect(mockToast).toBeCalledWith("New Ride Created - id: 17");
         expect(mockNavigate).toBeCalledWith({ "to": "/rides/" });
     });
 
