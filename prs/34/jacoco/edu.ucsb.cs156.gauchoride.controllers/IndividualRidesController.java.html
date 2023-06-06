@@ -40,7 +40,7 @@ import java.time.LocalDateTime;
     IndividualRidesRepository individualRidesRepository;
     
     @ApiOperation(value = &quot;List all individualRides&quot;)
-    @PreAuthorize(&quot;hasRole('ROLE_USER')&quot;)
+    @PreAuthorize(&quot;hasRole('ROLE_DRIVER') || hasRole('ROLE_ADMIN') || hasRole('ROLE_RIDER')&quot;)
     @GetMapping(&quot;/all&quot;)
     public Iterable&lt;IndividualRides&gt; allIndividualRides() {
 <span class="fc" id="L46">        Iterable&lt;IndividualRides&gt; individualRides = individualRidesRepository.findAll();</span>
@@ -48,7 +48,7 @@ import java.time.LocalDateTime;
     }
 
     @ApiOperation(value = &quot;List all individualRides with driverId&quot;)
-    @PreAuthorize(&quot;hasRole('ROLE_USER')&quot;)
+@PreAuthorize(&quot;hasRole('ROLE_DRIVER') || hasRole('ROLE_ADMIN') || hasRole('ROLE_RIDER')&quot;)
     @GetMapping(&quot;/allWithDriverId&quot;)
     public Iterable&lt;IndividualRides&gt; allIndividualRidesWithDriverId( 
         @ApiParam(&quot;driverId&quot;) @RequestParam Long id) {
@@ -65,32 +65,31 @@ import java.time.LocalDateTime;
     }
 
     @ApiOperation(value = &quot;List all individualRides with riderId&quot;)
-    @PreAuthorize(&quot;hasRole('ROLE_USER')&quot;)
+@PreAuthorize(&quot;hasRole('ROLE_DRIVER') || hasRole('ROLE_ADMIN') || hasRole('ROLE_RIDER')&quot;)
     @GetMapping(&quot;/allWithRiderId&quot;)
     public Iterable&lt;IndividualRides&gt; allIndividualRidesWithRiderId( 
-        @ApiParam(&quot;driverId&quot;) @RequestParam Long id) {
+        @ApiParam(&quot;riderId&quot;) @RequestParam Long id) {
 
 <span class="fc" id="L73">        Iterable&lt;IndividualRides&gt; individualRides = individualRidesRepository.findAll();</span>
 <span class="fc" id="L74">        List&lt;IndividualRides&gt; filteredList = new ArrayList&lt;&gt;();</span>
 
 <span class="fc bfc" id="L76" title="All 2 branches covered.">        for(IndividualRides ride : individualRides){</span>
-<span class="fc" id="L77">            List&lt;Long&gt; riderIds = Arrays.asList(ride.getRiderIds());</span>
-<span class="pc bpc" id="L78" title="1 of 2 branches missed.">            if(riderIds.contains(id))</span>
-<span class="fc" id="L79">                filteredList.add(ride);</span>
-<span class="fc" id="L80">        }</span>
+<span class="pc bpc" id="L77" title="1 of 2 branches missed.">            if(ride.getRiderId() == id)</span>
+<span class="fc" id="L78">                filteredList.add(ride);</span>
+<span class="fc" id="L79">        }</span>
 
-<span class="fc" id="L82">        return (Iterable&lt;IndividualRides&gt;)filteredList;</span>
+<span class="fc" id="L81">        return (Iterable&lt;IndividualRides&gt;)filteredList;</span>
     }
 
     @ApiOperation(value = &quot;Get a single ride&quot;)
-    @PreAuthorize(&quot;hasRole('ROLE_USER')&quot;)
+@PreAuthorize(&quot;hasRole('ROLE_DRIVER') || hasRole('ROLE_ADMIN') || hasRole('ROLE_RIDER')&quot;)
     @GetMapping(&quot;&quot;)
     public IndividualRides getById(
             @ApiParam(&quot;id&quot;) @RequestParam Long id) {
-<span class="fc" id="L90">                IndividualRides individualRide = individualRidesRepository.findById(id)</span>
-<span class="fc" id="L91">                .orElseThrow(() -&gt; new EntityNotFoundException(IndividualRides.class, id));</span>
+<span class="fc" id="L89">                IndividualRides individualRide = individualRidesRepository.findById(id)</span>
+<span class="fc" id="L90">                .orElseThrow(() -&gt; new EntityNotFoundException(IndividualRides.class, id));</span>
 
-<span class="fc" id="L93">        return individualRide;</span>
+<span class="fc" id="L92">        return individualRide;</span>
     }
 
     @ApiOperation(value = &quot;Delete a ride&quot;)
@@ -98,11 +97,11 @@ import java.time.LocalDateTime;
     @DeleteMapping(&quot;&quot;)
     public Object deleteRide(
             @ApiParam(&quot;id&quot;) @RequestParam Long id) {
-<span class="fc" id="L101">        IndividualRides individualRide = individualRidesRepository.findById(id)</span>
-<span class="fc" id="L102">                .orElseThrow(() -&gt; new EntityNotFoundException(IndividualRides.class, id));</span>
+<span class="fc" id="L100">        IndividualRides individualRide = individualRidesRepository.findById(id)</span>
+<span class="fc" id="L101">                .orElseThrow(() -&gt; new EntityNotFoundException(IndividualRides.class, id));</span>
 
-<span class="fc" id="L104">            individualRidesRepository.delete(individualRide);</span>
-<span class="fc" id="L105">        return genericMessage(&quot;Ride with id %s deleted&quot;.formatted(id));</span>
+<span class="fc" id="L103">            individualRidesRepository.delete(individualRide);</span>
+<span class="fc" id="L104">        return genericMessage(&quot;Ride with id %s deleted&quot;.formatted(id));</span>
     }
 
     @ApiOperation(value = &quot;Update a single ride&quot;)
@@ -112,18 +111,18 @@ import java.time.LocalDateTime;
             @ApiParam(&quot;id&quot;) @RequestParam Long id,
             @RequestBody @Valid IndividualRides incoming) {
 
-<span class="fc" id="L115">        IndividualRides individualRide = individualRidesRepository.findById(id)</span>
-<span class="fc" id="L116">                .orElseThrow(() -&gt; new EntityNotFoundException(IndividualRides.class, id));</span>
+<span class="fc" id="L114">        IndividualRides individualRide = individualRidesRepository.findById(id)</span>
+<span class="fc" id="L115">                .orElseThrow(() -&gt; new EntityNotFoundException(IndividualRides.class, id));</span>
 
-<span class="fc" id="L118">        individualRide.setDriverId(incoming.getDriverId());</span>
-<span class="fc" id="L119">        individualRide.setRiderIds(incoming.getRiderIds());</span>
-<span class="fc" id="L120">        individualRide.setStartTime(incoming.getStartTime());</span>
-<span class="fc" id="L121">        individualRide.setEndTime(incoming.getEndTime());</span>
-<span class="fc" id="L122">        individualRide.setPickupLocation(incoming.getPickupLocation());</span>
-<span class="fc" id="L123">        individualRide.setDropoffLocation(incoming.getDropoffLocation());</span>
-<span class="fc" id="L124">        individualRidesRepository.save(individualRide);</span>
+<span class="fc" id="L117">        individualRide.setDriverId(incoming.getDriverId());</span>
+<span class="fc" id="L118">        individualRide.setRiderId(incoming.getRiderId());</span>
+<span class="fc" id="L119">        individualRide.setStartTime(incoming.getStartTime());</span>
+<span class="fc" id="L120">        individualRide.setEndTime(incoming.getEndTime());</span>
+<span class="fc" id="L121">        individualRide.setPickupLocation(incoming.getPickupLocation());</span>
+<span class="fc" id="L122">        individualRide.setDropoffLocation(incoming.getDropoffLocation());</span>
+<span class="fc" id="L123">        individualRidesRepository.save(individualRide);</span>
 
-<span class="fc" id="L126">        return individualRide;</span>
+<span class="fc" id="L125">        return individualRide;</span>
     }
 
     @ApiOperation(value = &quot;Create a new individualRide&quot;)
@@ -131,28 +130,26 @@ import java.time.LocalDateTime;
     @PostMapping(&quot;/post&quot;)
     public IndividualRides postIndividualRide(
         @ApiParam(&quot;driverId&quot;) @RequestParam Long driverId,
-        @ApiParam(&quot;riderIds&quot;) @RequestParam Long[] riderIds,
+        @ApiParam(&quot;riderId&quot;) @RequestParam Long riderId,
         @ApiParam(&quot;startTime&quot;) @RequestParam String startTimeString,
         @ApiParam(&quot;endTime&quot;) @RequestParam String endTimeString,
         @ApiParam(&quot;pickupLocation&quot;) @RequestParam String pickupLocation,
         @ApiParam(&quot;dropoffLocation&quot;) @RequestParam String dropoffLocation
         )
     {
+<span class="fc" id="L140">        LocalDateTime startTime = LocalDateTime.parse(startTimeString);</span>
+<span class="fc" id="L141">        LocalDateTime endTime = LocalDateTime.parse(endTimeString);</span>
 
+<span class="fc" id="L143">        IndividualRides individualRide = new IndividualRides();</span>
+<span class="fc" id="L144">        individualRide.setDriverId(driverId);</span>
+<span class="fc" id="L145">        individualRide.setRiderId(riderId);</span>
+<span class="fc" id="L146">        individualRide.setStartTime(startTime);</span>
+<span class="fc" id="L147">        individualRide.setEndTime(endTime);</span>
+<span class="fc" id="L148">        individualRide.setPickupLocation(pickupLocation);</span>
+<span class="fc" id="L149">        individualRide.setDropoffLocation(dropoffLocation);</span>
 
-<span class="fc" id="L143">        LocalDateTime startTime = LocalDateTime.parse(startTimeString);</span>
-<span class="fc" id="L144">        LocalDateTime endTime = LocalDateTime.parse(endTimeString);</span>
-
-<span class="fc" id="L146">        IndividualRides individualRide = new IndividualRides();</span>
-<span class="fc" id="L147">        individualRide.setDriverId(driverId);</span>
-<span class="fc" id="L148">        individualRide.setRiderIds(riderIds);</span>
-<span class="fc" id="L149">        individualRide.setStartTime(startTime);</span>
-<span class="fc" id="L150">        individualRide.setEndTime(endTime);</span>
-<span class="fc" id="L151">        individualRide.setPickupLocation(pickupLocation);</span>
-<span class="fc" id="L152">        individualRide.setDropoffLocation(dropoffLocation);</span>
-
-<span class="fc" id="L154">        IndividualRides savedRide = individualRidesRepository.save(individualRide);</span>
-<span class="fc" id="L155">        return savedRide;</span>
+<span class="fc" id="L151">        IndividualRides savedRide = individualRidesRepository.save(individualRide);</span>
+<span class="fc" id="L152">        return savedRide;</span>
     }
 }
 
