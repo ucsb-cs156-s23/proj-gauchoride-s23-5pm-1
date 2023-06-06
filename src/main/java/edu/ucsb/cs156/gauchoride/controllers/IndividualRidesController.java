@@ -40,7 +40,7 @@ public class IndividualRidesController extends ApiController {
     IndividualRidesRepository individualRidesRepository;
     
     @ApiOperation(value = "List all individualRides")
-    @PreAuthorize("hasRole('ROLE_USER')")
+    @PreAuthorize("hasRole('ROLE_DRIVER') || hasRole('ROLE_ADMIN') || hasRole('ROLE_RIDER')")
     @GetMapping("/all")
     public Iterable<IndividualRides> allIndividualRides() {
         Iterable<IndividualRides> individualRides = individualRidesRepository.findAll();
