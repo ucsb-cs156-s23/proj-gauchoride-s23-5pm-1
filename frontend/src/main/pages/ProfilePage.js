@@ -4,15 +4,16 @@ import RoleBadge from "main/components/Profile/RoleBadge";
 import { useCurrentUser } from "main/utils/currentUser";
 import BasicLayout from "main/layouts/BasicLayout/BasicLayout";
 
-const ProfilePage = () => {
-  const { data: currentUser } = useCurrentUser();
+const ProfilePage = ({user}) => {
+  const { data: currentUserFromHook } = useCurrentUser();
 
+  const currentUser = (user || currentUserFromHook)
+  console.log("currentUser: ", currentUser);
   if (!currentUser.loggedIn) {
     return <p>Not logged in.</p>;
   }
 
   const { email, pictureUrl, fullName } = currentUser.root.user;
-
 
   return (
     <BasicLayout>

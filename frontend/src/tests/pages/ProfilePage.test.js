@@ -48,6 +48,11 @@ describe("ProfilePage tests", () => {
         expect(getByTestId("role-badge-user")).toBeInTheDocument();
         expect(getByTestId("role-badge-admin")).toBeInTheDocument();
         expect(getByTestId("role-badge-member")).toBeInTheDocument();
+        const contactMessage = getByText(
+            "Please contact an admin if any of these parameters are incorrect"
+          );
+      
+        expect(contactMessage).toHaveStyle("color: rgba(128, 128, 128, 0.5)");
         expect(getByText("phtcon@ucsb.edu")).toBeInTheDocument();
         expect(getByText("Active Admin")).toBeInTheDocument();
         expect(getByText("Not a Rider")).toBeInTheDocument();
