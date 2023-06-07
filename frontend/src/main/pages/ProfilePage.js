@@ -8,7 +8,6 @@ const ProfilePage = ({user}) => {
   const { data: currentUserFromHook } = useCurrentUser();
 
   const currentUser = (user || currentUserFromHook)
-  console.log("currentUser: ", currentUser);
   if (!currentUser.loggedIn) {
     return <p>Not logged in.</p>;
   }
