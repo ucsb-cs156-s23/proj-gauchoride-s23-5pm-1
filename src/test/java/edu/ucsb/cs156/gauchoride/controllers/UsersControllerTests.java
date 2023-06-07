@@ -503,19 +503,20 @@ public class UsersControllerTests extends ControllerTestCase {
   @Test
   public void user_can_change_pronouns() throws Exception {
           // arrange
-          User currentUser = currentUserService.getCurrentUser().getUser();
+        User currentUser = currentUserService.getCurrentUser().getUser();
+        currentUser.setPronouns("he,him");
         User userAfter = User.builder()
         .pronouns("she,her")
-        .id(1)
-        .email("user@example.org")
-        .googleSub("fake_user")
-        .pictureUrl("https://example.org/user.jpg")
-        .fullName("Fake user")
-        .givenName("Fake")
-        .familyName("user")
-        .emailVerified(true)
-        .locale("")
-        .hostedDomain("example.org")
+        .id(currentUser.getId())
+        .email(currentUser.getEmail())
+        .googleSub(currentUser.getGoogleSub())
+        .pictureUrl(currentUser.getPictureUrl())
+        .fullName(currentUser.getFullName())
+        .givenName(currentUser.getGivenName())
+        .familyName(currentUser.getFamilyName())
+        .emailVerified(currentUser.getEmailVerified())
+        .locale(currentUser.getLocale())
+        .hostedDomain(currentUser.getHostedDomain())
         .build();
 
            when(userRepository.save(eq(userAfter))).thenReturn(userAfter);
@@ -530,6 +531,8 @@ public class UsersControllerTests extends ControllerTestCase {
 
           Map<String, Object> json = responseToJson(response);
           assertEquals("User has changed pronouns to she,her", json.get("message"));
+
+          currentUserService.resetCurrentUser();
   }
 
 }
