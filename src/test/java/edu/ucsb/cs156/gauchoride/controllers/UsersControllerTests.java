@@ -531,6 +531,8 @@ public class UsersControllerTests extends ControllerTestCase {
             
                       Map<String, Object> json = responseToJson(response);
                       assertEquals("User has toggled wheelchair status from false to true", json.get("message"));
+
+                      currentUserService.resetCurrentUser();
   }
 
   @WithMockUser(roles = { "USER" })
@@ -539,6 +541,7 @@ public class UsersControllerTests extends ControllerTestCase {
                     // arrange
                     User currentUser = currentUserService.getCurrentUser().getUser();
                     currentUser.setWheelchair(true);
+
                     User userAfter = User.builder()
                     .wheelchair(false)
                     .id(currentUser.getId())
@@ -566,6 +569,8 @@ public class UsersControllerTests extends ControllerTestCase {
             
                       Map<String, Object> json = responseToJson(response);
                       assertEquals("User has toggled wheelchair status from true to false", json.get("message"));
+
+                      currentUserService.resetCurrentUser();
   }
 
 }
