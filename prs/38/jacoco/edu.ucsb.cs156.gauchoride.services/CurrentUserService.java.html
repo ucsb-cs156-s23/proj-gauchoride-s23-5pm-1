@@ -16,5 +16,12 @@ import edu.ucsb.cs156.gauchoride.models.CurrentUser;
 <span class="fc bfc" id="L16" title="All 2 branches covered.">    return getUser() != null;</span>
   }
 
+  /**
+   * This should only be called in test code, never in production code!
+   * 
+   * It resets the current user to a known state for tests, in case
+   * a previous test has changed it in some way.
+   */
+  public abstract void resetCurrentUser();
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>
