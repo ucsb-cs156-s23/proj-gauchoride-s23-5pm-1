@@ -498,95 +498,74 @@ public class UsersControllerTests extends ControllerTestCase {
           assertEquals(expectedJson, responseString);
   }
 
-  @WithMockUser(roles = { "ADMIN", "USER" })
+  @WithMockUser(roles = { "USER" })
   @Test
-  public void user_can_toggle_wheelchair_status_of_a_user_from_false_to_true() throws Exception {
-          // arrange
-          User userBefore = User.builder()
-          .email("cgaucho@ucsb.edu")
-          .id(15L)
-          .admin(false)
-          .wheelchair(false)
-          .build();
-
-          User userAfter = User.builder()
-          .email("cgaucho@ucsb.edu")
-          .id(15L)
-          .admin(false)
-          .wheelchair(true)
-          .build();
-
-    
-          when(userRepository.findById(eq(15L))).thenReturn(Optional.of(userBefore));
-          when(userRepository.save(eq(userAfter))).thenReturn(userAfter);
-          // act
-          MvcResult response = mockMvc.perform(
-                          post("/api/admin/users/toggleWheelchair?id=15")
-                                          .with(csrf()))
-                          .andExpect(status().isOk()).andReturn();
-
-          // assert
-          verify(userRepository, times(1)).findById(15L);
-          verify(userRepository, times(1)).save(userAfter);
-
-          Map<String, Object> json = responseToJson(response);
-          assertEquals("User with id 15 has toggled wheelchair status from false to true", json.get("message"));
+  public void user_can_toggle_wheelchair_status_from_false_to_true() throws Exception {
+                    // arrange
+                    User currentUser = currentUserService.getCurrentUser().getUser();
+                    currentUser.setWheelchair(false);
+                    
+                    User userAfter = User.builder()
+                    .wheelchair(true)
+                    .id(currentUser.getId())
+                    .email(currentUser.getEmail())
+                    .googleSub(currentUser.getGoogleSub())
+                    .pictureUrl(currentUser.getPictureUrl())
+                    .fullName(currentUser.getFullName())
+                    .givenName(currentUser.getGivenName())
+                    .familyName(currentUser.getFamilyName())
+                    .emailVerified(currentUser.getEmailVerified())
+                    .locale(currentUser.getLocale())
+                    .hostedDomain(currentUser.getHostedDomain())
+                    .build();
+            
+                       when(userRepository.save(eq(userAfter))).thenReturn(userAfter);
+                      // act
+                      MvcResult response = mockMvc.perform(
+                                      post("/api/admin/users/toggleWheelchair")
+                                                      .with(csrf()))
+                                      .andExpect(status().isOk()).andReturn();
+            
+                      // assert
+                       verify(userRepository, times(1)).save(eq(userAfter));
+            
+                      Map<String, Object> json = responseToJson(response);
+                      assertEquals("User has toggled wheelchair status from false to true", json.get("message"));
   }
 
-  @WithMockUser(roles = { "ADMIN", "USER" })
+  @WithMockUser(roles = { "USER" })
   @Test
-  public void user_can_toggle_wheelchair_status_of_a_user_from_true_to_false() throws Exception {
-          // arrange
-          User userBefore = User.builder()
-          .email("cgaucho@ucsb.edu")
-          .id(15L)
-          .admin(true)
-          .wheelchair(true)
-          .build();
+  public void user_can_toggle_wheelchair_status_from_true_to_false() throws Exception {
+                    // arrange
+                    User currentUser = currentUserService.getCurrentUser().getUser();
+                    currentUser.setWheelchair(true);
+                    User userAfter = User.builder()
+                    .wheelchair(false)
+                    .id(currentUser.getId())
+                    .email(currentUser.getEmail())
+                    .googleSub(currentUser.getGoogleSub())
+                    .pictureUrl(currentUser.getPictureUrl())
+                    .fullName(currentUser.getFullName())
+                    .givenName(currentUser.getGivenName())
+                    .familyName(currentUser.getFamilyName())
+                    .emailVerified(currentUser.getEmailVerified())
+                    .locale(currentUser.getLocale())
+                    .hostedDomain(currentUser.getHostedDomain())
+                    .build();
+            
+                       when(userRepository.save(eq(userAfter))).thenReturn(userAfter);
+                      // act
 
-          User userAfter = User.builder()
-          .email("cgaucho@ucsb.edu")
-          .id(15L)
-          .admin(true)
-          .wheelchair(false)
-          .build();
-
-    
-          when(userRepository.findById(eq(15L))).thenReturn(Optional.of(userBefore));
-          when(userRepository.save(eq(userAfter))).thenReturn(userAfter);
-          // act
-          MvcResult response = mockMvc.perform(
-                          post("/api/admin/users/toggleWheelchair?id=15")
-                                          .with(csrf()))
-                          .andExpect(status().isOk()).andReturn();
-
-          // assert
-          verify(userRepository, times(1)).findById(15L);
-          verify(userRepository, times(1)).save(userAfter);
-
-          Map<String, Object> json = responseToJson(response);
-          assertEquals("User with id 15 has toggled wheelchair status from true to false", json.get("message"));
-  }
-
-  @WithMockUser(roles = { "ADMIN", "USER" })
-  @Test
-  public void user_tries_to_toggle_wheelchair_on_non_existant_user_and_gets_right_error_message() throws Exception {
-          // arrange
-          when(userRepository.findById(eq(15L))).thenReturn(Optional.empty());
-          
-          // act
-          MvcResult response = mockMvc.perform(
-                          post("/api/admin/users/toggleWheelchair?id=15")
-                                          .with(csrf()))
-                          .andExpect(status().isNotFound()).andReturn();
-
-          // assert
-          verify(userRepository, times(1)).findById(15L);
-         
-
-          Map<String, Object> json = responseToJson(response);
-          assertEquals("User with id 15 not found", json.get("message"));
+                      MvcResult response = mockMvc.perform(
+                                      post("/api/admin/users/toggleWheelchair")
+                                                      .with(csrf()))
+                                      .andExpect(status().isOk()).andReturn();
+            
+                      // assert
+                       verify(userRepository, times(1)).save(userAfter);
+            
+                      Map<String, Object> json = responseToJson(response);
+                      assertEquals("User has toggled wheelchair status from true to false", json.get("message"));
   }
 
 }
-
