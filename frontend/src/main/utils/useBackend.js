@@ -68,9 +68,12 @@ export function useBackendMutation(objectToAxiosParams, useMutationParams, query
         // Stryker disable all: Not sure how to set up the complex behavior needed to test this
         onSettled: () => {
             if (queryKey !== null)
-                queryClient.invalidateQueries(queryKey);
+                //if (Array.isArray(queryKey)) {
+                queryKey.forEach((key) => {
+                    queryClient.invalidateQueries(key);
+                });
         },
-        // Stryker enable all
+        // Stryker restore all
         retry: false,
         ...useMutationParams
     })

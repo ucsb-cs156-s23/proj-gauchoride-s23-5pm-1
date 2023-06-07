@@ -144,7 +144,51 @@ describe("AdminUsersPage tests", () => {
 
     })
 
-    test("Tests Drivers Filter", async ()=>{
+    test("Tests All->Drivers->All", async ()=>{
+        setupAdminUser();
+        const queryClient = new QueryClient();
+        axiosMock.onGet("/api/admin/users").reply(200, usersFixtures.threeUsers);
+        axiosMock.onGet("/api/admin/users/riders").reply(200, usersFixtures.justRider);
+        axiosMock.onGet("/api/admin/users/drivers").reply(200, usersFixtures.justDriver);
+
+        const { getByText, getByLabelText} = render(
+            <QueryClientProvider client={queryClient}>
+                <MemoryRouter>
+                    <AdminUsersPage />
+                </MemoryRouter>
+            </QueryClientProvider>
+        );
+        await waitFor(() => expect(getByText("Phill")).toBeInTheDocument());
+        
+        const riderCheckbox = screen.getByLabelText("Riders");
+        const driverCheckbox = screen.getByLabelText("Drivers");
+        const allCheckbox = screen.getByLabelText("All");
+        expect(riderCheckbox).not.toBeChecked();
+        expect(riderCheckbox).toBeInTheDocument();
+        expect(driverCheckbox).toBeInTheDocument();
+        expect(driverCheckbox).not.toBeChecked();
+        expect(allCheckbox).toBeInTheDocument();
+        expect(allCheckbox).toBeChecked();
+
+        const nameCell1 = screen.getByTestId(`${testId}-cell-row-0-col-givenName`);
+        const nameCell2 = screen.getByTestId(`${testId}-cell-row-1-col-givenName`);
+        const nameCell3 = screen.getByTestId(`${testId}-cell-row-2-col-givenName`);
+        expect(nameCell1).toHaveTextContent("Phill");
+        expect(nameCell2).toBeInTheDocument();
+        expect(nameCell3).toBeInTheDocument();
+
+        fireEvent.click(driverCheckbox);
+        expect(nameCell1).toHaveTextContent("Phillip");
+        expect(allCheckbox).not.toBeChecked();
+        expect(driverCheckbox).toBeChecked();
+
+        fireEvent.click(allCheckbox);
+        expect(nameCell1).toHaveTextContent("Phill");
+        expect(allCheckbox).toBeChecked();
+        expect(riderCheckbox).not.toBeChecked();
+    })
+
+    test("Tests All->Riders", async ()=>{
         setupAdminUser();
         const queryClient = new QueryClient();
         axiosMock.onGet("/api/admin/users").reply(200, usersFixtures.threeUsers);
@@ -158,9 +202,118 @@ describe("AdminUsersPage tests", () => {
                 </MemoryRouter>
             </QueryClientProvider>
         );
-        await waitFor(() => expect(getByText("Phill Conrad")).toBeInTheDocument());
+        await waitFor(() => expect(getByText("Phill")).toBeInTheDocument());
         
-        const riderCheckbox = screen.getByTestId(`${testId}-cell-row-0-col-toggle-driver-button`);
+        const riderCheckbox = screen.getByLabelText("Riders");
+        const driverCheckbox = screen.getByLabelText("Drivers");
+        const allCheckbox = screen.getByLabelText("All");
+        expect(riderCheckbox).not.toBeChecked();
+        expect(riderCheckbox).toBeInTheDocument();
+        expect(driverCheckbox).toBeInTheDocument();
+        expect(driverCheckbox).not.toBeChecked();
+        expect(allCheckbox).toBeInTheDocument();
+        expect(allCheckbox).toBeChecked();
+
+        const nameCell1 = screen.getByTestId(`${testId}-cell-row-0-col-givenName`);
+        const nameCell2 = screen.getByTestId(`${testId}-cell-row-1-col-givenName`);
+        const nameCell3 = screen.getByTestId(`${testId}-cell-row-2-col-givenName`);
+        expect(nameCell1).toHaveTextContent("Phill");
+        expect(nameCell2).toBeInTheDocument();
+        expect(nameCell3).toBeInTheDocument();
+        fireEvent.click(riderCheckbox);
+        expect(allCheckbox).not.toBeChecked();
+        expect(riderCheckbox).toBeChecked();
+        expect(nameCell1).toHaveTextContent("Craig");
+    })
+
+    test("Tests All->Riders->All Filter", async ()=>{
+        setupAdminUser();
+        const queryClient = new QueryClient();
+        axiosMock.onGet("/api/admin/users").reply(200, usersFixtures.threeUsers);
+        axiosMock.onGet("/api/admin/users/riders").reply(200, usersFixtures.justRider);
+        axiosMock.onGet("/api/admin/users/drivers").reply(200, usersFixtures.justDriver);
+
+        const { getByText, getByLabelText} = render(
+            <QueryClientProvider client={queryClient}>
+                <MemoryRouter>
+                    <AdminUsersPage />
+                </MemoryRouter>
+            </QueryClientProvider>
+        );
+        await waitFor(() => expect(getByText("Phill")).toBeInTheDocument());
+        
+        const riderCheckbox = screen.getByLabelText("Riders");
+        const driverCheckbox = screen.getByLabelText("Drivers");
+        const allCheckbox = screen.getByLabelText("All");
+        expect(riderCheckbox).not.toBeChecked();
+        expect(riderCheckbox).toBeInTheDocument();
+        expect(driverCheckbox).toBeInTheDocument();
+        expect(driverCheckbox).not.toBeChecked();
+        expect(allCheckbox).toBeInTheDocument();
+        expect(allCheckbox).toBeChecked();
+
+        const nameCell1 = screen.getByTestId(`${testId}-cell-row-0-col-givenName`);
+        const nameCell2 = screen.getByTestId(`${testId}-cell-row-1-col-givenName`);
+        const nameCell3 = screen.getByTestId(`${testId}-cell-row-2-col-givenName`);
+        expect(nameCell1).toHaveTextContent("Phill");
+        expect(nameCell2).toBeInTheDocument();
+        expect(nameCell3).toBeInTheDocument();
+        fireEvent.click(riderCheckbox);
+        expect(allCheckbox).not.toBeChecked();
+        expect(riderCheckbox).toBeChecked();
+        expect(driverCheckbox).not.toBeChecked();
+        expect(nameCell1).toHaveTextContent("Craig");
+        fireEvent.click(allCheckbox);
+        expect(nameCell1).toHaveTextContent("Phill");
+        expect(allCheckbox).toBeChecked();
+        expect(driverCheckbox).not.toBeChecked();
+        expect(riderCheckbox).not.toBeChecked();
+    })
+
+    test("Tests All->Riders->Drivers Filter", async ()=>{
+        setupAdminUser();
+        const queryClient = new QueryClient();
+        axiosMock.onGet("/api/admin/users").reply(200, usersFixtures.threeUsers);
+        axiosMock.onGet("/api/admin/users/riders").reply(200, usersFixtures.justRider);
+        axiosMock.onGet("/api/admin/users/drivers").reply(200, usersFixtures.justDriver);
+
+        const { getByText, getByLabelText} = render(
+            <QueryClientProvider client={queryClient}>
+                <MemoryRouter>
+                    <AdminUsersPage />
+                </MemoryRouter>
+            </QueryClientProvider>
+        );
+        await waitFor(() => expect(getByText("Phill")).toBeInTheDocument());
+        
+        const riderCheckbox = screen.getByLabelText("Riders");
+        const driverCheckbox = screen.getByLabelText("Drivers");
+        const allCheckbox = screen.getByLabelText("All");
+        expect(riderCheckbox).not.toBeChecked();
+        expect(riderCheckbox).toBeInTheDocument();
+        expect(driverCheckbox).toBeInTheDocument();
+        expect(driverCheckbox).not.toBeChecked();
+        expect(allCheckbox).toBeInTheDocument();
+        expect(allCheckbox).toBeChecked();
+
+        const nameCell1 = screen.getByTestId(`${testId}-cell-row-0-col-givenName`);
+        const nameCell2 = screen.getByTestId(`${testId}-cell-row-1-col-givenName`);
+        const nameCell3 = screen.getByTestId(`${testId}-cell-row-2-col-givenName`);
+        expect(nameCell1).toHaveTextContent("Phill");
+        expect(nameCell2).toBeInTheDocument();
+        expect(nameCell3).toBeInTheDocument();
+
+        fireEvent.click(riderCheckbox);
+        expect(allCheckbox).not.toBeChecked();
+        expect(riderCheckbox).toBeChecked();
+        expect(driverCheckbox).not.toBeChecked();
+        expect(nameCell1).toHaveTextContent("Craig");
+
+        fireEvent.click(driverCheckbox);
+        expect(nameCell1).toHaveTextContent("Phillip");
+        expect(allCheckbox).not.toBeChecked();
+        expect(driverCheckbox).toBeChecked();
+        expect(riderCheckbox).not.toBeChecked();
     })
 });
 
