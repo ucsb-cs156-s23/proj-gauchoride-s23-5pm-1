@@ -151,7 +151,7 @@ describe("AdminUsersPage tests", () => {
         axiosMock.onGet("/api/admin/users/riders").reply(200, usersFixtures.justRider);
         axiosMock.onGet("/api/admin/users/drivers").reply(200, usersFixtures.justDriver);
 
-        const { getByText, getByLabelText} = render(
+        const { getByText} = render(
             <QueryClientProvider client={queryClient}>
                 <MemoryRouter>
                     <AdminUsersPage />
@@ -233,7 +233,7 @@ describe("AdminUsersPage tests", () => {
         axiosMock.onGet("/api/admin/users/riders").reply(200, usersFixtures.justRider);
         axiosMock.onGet("/api/admin/users/drivers").reply(200, usersFixtures.justDriver);
 
-        const { getByText, getByLabelText} = render(
+        const { getByText} = render(
             <QueryClientProvider client={queryClient}>
                 <MemoryRouter>
                     <AdminUsersPage />
@@ -277,7 +277,7 @@ describe("AdminUsersPage tests", () => {
         axiosMock.onGet("/api/admin/users/riders").reply(200, usersFixtures.justRider);
         axiosMock.onGet("/api/admin/users/drivers").reply(200, usersFixtures.justDriver);
 
-        const { getByText, getByLabelText} = render(
+        const { getByText} = render(
             <QueryClientProvider client={queryClient}>
                 <MemoryRouter>
                     <AdminUsersPage />
