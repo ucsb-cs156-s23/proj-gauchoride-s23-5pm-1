@@ -25,7 +25,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>4/4</span>
+                <span class='fraction'>5/5</span>
             </div>
         
             
@@ -46,7 +46,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>4/4</span>
+                <span class='fraction'>5/5</span>
             </div>
         
             
@@ -250,7 +250,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">8x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">8x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -419,7 +419,7 @@ function RideForm({ initialContents, submitAction, buttonLabel = "Create" }) {
     // Stryker enable all
     const navigate = useNavigate();
 &nbsp;
-&nbsp;
+    const testIdPrefix = "RideForm";
 &nbsp;
     return (
 &nbsp;
@@ -429,7 +429,7 @@ function RideForm({ initialContents, submitAction, buttonLabel = "Create" }) {
                 &lt;Form.Group className="mb-3" &gt;
                     &lt;Form.Label htmlFor="id"&gt;Id&lt;/Form.Label&gt;
                     &lt;Form.Control
-                        data-testid={"RideForm-id"}
+                        data-testid={testIdPrefix+"-id"}
                         id="id"
                         type="text"
                         {...register("id")}
@@ -442,7 +442,7 @@ function RideForm({ initialContents, submitAction, buttonLabel = "Create" }) {
             &lt;Form.Group className="mb-3" &gt;
                 &lt;Form.Label htmlFor="day"&gt;Day of Week&lt;/Form.Label&gt;
                 &lt;Form.Select
-                    data-testid={"RideForm-day"}
+                    data-testid={testIdPrefix+"-day"}
                     id="day"
                     isInvalid={Boolean(errors.day)}
                     {...register("day", {
@@ -467,7 +467,7 @@ function RideForm({ initialContents, submitAction, buttonLabel = "Create" }) {
             &lt;Form.Group className="mb-3" &gt;
                 &lt;Form.Label htmlFor="startTime"&gt;Start Time&lt;/Form.Label&gt;
                 &lt;Form.Control
-                    data-testid={"RideForm-startTime"}
+                    data-testid={testIdPrefix+"-startTime"}
                     id="startTime"
                     type="text"
                     isInvalid={Boolean(errors.startTime)}
@@ -491,7 +491,7 @@ function RideForm({ initialContents, submitAction, buttonLabel = "Create" }) {
             &lt;Form.Group className="mb-3" &gt;
                 &lt;Form.Label htmlFor="endTime"&gt;End Time&lt;/Form.Label&gt;
                 &lt;Form.Control
-                    data-testid={"RideForm-endTime"}
+                    data-testid={testIdPrefix+"-endTime"}
                     id="endTime"
                     type="text"
                     isInvalid={Boolean(errors.endTime) }
@@ -513,7 +513,7 @@ function RideForm({ initialContents, submitAction, buttonLabel = "Create" }) {
             &lt;Form.Group className="mb-3" &gt;
                 &lt;Form.Label htmlFor="pickupLocation"&gt;Pickup Location&lt;/Form.Label&gt;
                 &lt;Form.Control
-                    data-testid={"RideForm-pickupLocation"}
+                    data-testid={testIdPrefix+"-pickupLocation"}
                     id="pickupLocation"
                     type="text"
                     isInvalid={Boolean(errors.pickupLocation)}
@@ -533,7 +533,7 @@ function RideForm({ initialContents, submitAction, buttonLabel = "Create" }) {
             &lt;Form.Group className="mb-3" &gt;
                 &lt;Form.Label htmlFor="dropoffLocation"&gt;Dropoff Location&lt;/Form.Label&gt;
                 &lt;Form.Control
-                    data-testid={"RideForm-dropoffLocation"}
+                    data-testid={testIdPrefix+"-dropoffLocation"}
                     id="dropoffLocation"
                     type="text"
                     isInvalid={Boolean(errors.dropoffLocation)}
@@ -553,14 +553,14 @@ function RideForm({ initialContents, submitAction, buttonLabel = "Create" }) {
 &nbsp;
             &lt;Button
                 type="submit"
-                data-testid={"RideForm-submit"}
+                data-testid={testIdPrefix+"-submit"}
             &gt;
                 {buttonLabel}
             &lt;/Button&gt;
             &lt;Button
                 variant="Secondary"
                 onClick={() =&gt; navigate(-1)}
-                data-testid={"RideForm-cancel"}
+                data-testid={testIdPrefix+"-cancel"}
             &gt;
                 Cancel
             &lt;/Button&gt;
@@ -577,7 +577,7 @@ export default RideForm;</pre></td></tr></table></pre>
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at Tue Jun 06 2023 16:02:58 GMT-0700 (Pacific Daylight Time)
+                at Wed Jun 07 2023 11:23:02 GMT-0700 (Pacific Daylight Time)
             </div>
         <script src="../../prettify.js"></script>
         <script>
