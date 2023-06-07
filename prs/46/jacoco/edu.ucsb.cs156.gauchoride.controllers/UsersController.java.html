@@ -157,18 +157,18 @@ import io.swagger.annotations.ApiParam;
     }
 
     @ApiOperation(value = &quot;Toggle the wheelchair field&quot;)
+    @PreAuthorize(&quot;hasRole('ROLE_USER')&quot;)
     @PostMapping(&quot;/toggleWheelchair&quot;)
-    public Object toggleWheelchair( @ApiParam(&quot;id&quot;) @RequestParam Long id){
-<span class="fc" id="L162">        User user = userRepository.findById(id)</span>
-<span class="fc" id="L163">        .orElseThrow(() -&gt; new EntityNotFoundException(User.class, id));</span>
+    public Object toggleWheelchair(){
+<span class="fc" id="L163">        User user = super.getCurrentUser().getUser();</span>
 
 <span class="fc bfc" id="L165" title="All 2 branches covered.">        user.setWheelchair(!user.getWheelchair());</span>
 <span class="fc" id="L166">        userRepository.save(user);</span>
 <span class="fc bfc" id="L167" title="All 2 branches covered.">        if (user.getWheelchair()) {</span>
-<span class="fc" id="L168">            return genericMessage(&quot;User with id %s has toggled wheelchair status from false to true&quot;.formatted(id));</span>
+<span class="fc" id="L168">            return genericMessage(&quot;User has toggled wheelchair status from false to true&quot;);</span>
         }
         else {
-<span class="fc" id="L171">            return genericMessage(&quot;User with id %s has toggled wheelchair status from true to false&quot;.formatted(id));</span>
+<span class="fc" id="L171">            return genericMessage(&quot;User has toggled wheelchair status from true to false&quot;);</span>
         }
     }
 
