@@ -166,6 +166,22 @@ import io.swagger.annotations.ApiParam;
 <span class="fc" id="L166">        userRepository.save(user);</span>
 <span class="fc" id="L167">        return genericMessage(&quot;User has changed pronouns to %s&quot;.formatted(pronouns));</span>
     }
+  
+    @ApiOperation(value = &quot;Toggle the wheelchair field&quot;)
+    @PreAuthorize(&quot;hasRole('ROLE_USER')&quot;)
+    @PostMapping(&quot;/toggleWheelchair&quot;)
+    public Object toggleWheelchair(){
+<span class="fc" id="L174">        User user = super.getCurrentUser().getUser();</span>
+
+<span class="pc bpc" id="L176" title="1 of 2 branches missed.">        user.setWheelchair(!user.getWheelchair());</span>
+<span class="fc" id="L177">        userRepository.save(user);</span>
+<span class="pc bpc" id="L178" title="1 of 2 branches missed.">        if (user.getWheelchair()) {</span>
+<span class="nc" id="L179">            return genericMessage(&quot;User has toggled wheelchair status from false to true&quot;);</span>
+        }
+        else {
+<span class="fc" id="L182">            return genericMessage(&quot;User has toggled wheelchair status from true to false&quot;);</span>
+        }
+    }
 
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>
