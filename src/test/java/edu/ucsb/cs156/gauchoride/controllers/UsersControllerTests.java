@@ -498,4 +498,79 @@ public class UsersControllerTests extends ControllerTestCase {
           assertEquals(expectedJson, responseString);
   }
 
+  @WithMockUser(roles = { "USER" })
+  @Test
+  public void user_can_toggle_wheelchair_status_from_false_to_true() throws Exception {
+                    // arrange
+                    User currentUser = currentUserService.getCurrentUser().getUser();
+                    currentUser.setWheelchair(false);
+                    
+                    User userAfter = User.builder()
+                    .wheelchair(true)
+                    .id(currentUser.getId())
+                    .email(currentUser.getEmail())
+                    .googleSub(currentUser.getGoogleSub())
+                    .pictureUrl(currentUser.getPictureUrl())
+                    .fullName(currentUser.getFullName())
+                    .givenName(currentUser.getGivenName())
+                    .familyName(currentUser.getFamilyName())
+                    .emailVerified(currentUser.getEmailVerified())
+                    .locale(currentUser.getLocale())
+                    .hostedDomain(currentUser.getHostedDomain())
+                    .build();
+            
+                       when(userRepository.save(eq(userAfter))).thenReturn(userAfter);
+                      // act
+                      MvcResult response = mockMvc.perform(
+                                      post("/api/admin/users/toggleWheelchair")
+                                                      .with(csrf()))
+                                      .andExpect(status().isOk()).andReturn();
+            
+                      // assert
+                       verify(userRepository, times(1)).save(eq(userAfter));
+            
+                      Map<String, Object> json = responseToJson(response);
+                      assertEquals("User has toggled wheelchair status from false to true", json.get("message"));
+
+                      currentUserService.resetCurrentUser();
+  }
+
+  @WithMockUser(roles = { "USER" })
+  @Test
+  public void user_can_toggle_wheelchair_status_from_true_to_false() throws Exception {
+                    // arrange
+                    User currentUser = currentUserService.getCurrentUser().getUser();
+                    currentUser.setWheelchair(true);
+
+                    User userAfter = User.builder()
+                    .wheelchair(false)
+                    .id(currentUser.getId())
+                    .email(currentUser.getEmail())
+                    .googleSub(currentUser.getGoogleSub())
+                    .pictureUrl(currentUser.getPictureUrl())
+                    .fullName(currentUser.getFullName())
+                    .givenName(currentUser.getGivenName())
+                    .familyName(currentUser.getFamilyName())
+                    .emailVerified(currentUser.getEmailVerified())
+                    .locale(currentUser.getLocale())
+                    .hostedDomain(currentUser.getHostedDomain())
+                    .build();
+            
+                       when(userRepository.save(eq(userAfter))).thenReturn(userAfter);
+                      // act
+
+                      MvcResult response = mockMvc.perform(
+                                      post("/api/admin/users/toggleWheelchair")
+                                                      .with(csrf()))
+                                      .andExpect(status().isOk()).andReturn();
+            
+                      // assert
+                       verify(userRepository, times(1)).save(userAfter);
+            
+                      Map<String, Object> json = responseToJson(response);
+                      assertEquals("User has toggled wheelchair status from true to false", json.get("message"));
+
+                      currentUserService.resetCurrentUser();
+  }
+
 }
