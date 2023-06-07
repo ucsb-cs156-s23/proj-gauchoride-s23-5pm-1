@@ -26,7 +26,10 @@ import edu.ucsb.cs156.gauchoride.services.CurrentUserServiceImpl;
 @Service("currentUser")
 public class MockCurrentUserServiceImpl extends CurrentUserServiceImpl {
 
-  public User getMockUser(SecurityContext securityContext, Authentication authentication) {
+  private User mockUser;
+  private User savedUser;
+
+  public void initMockUser(SecurityContext securityContext, Authentication authentication) {
     Object principal = authentication.getPrincipal();
 
     String googleSub = "fakeUser";
@@ -36,63 +39,98 @@ public class MockCurrentUserServiceImpl extends CurrentUserServiceImpl {
     String givenName = "Fake";
     String familyName = "User";
     boolean emailVerified = true;
-    String locale="";
-    String hostedDomain="example.org";
-    boolean admin=false;
+    String locale = "";
+    String hostedDomain = "example.org";
+    boolean admin = false;
 
     org.springframework.security.core.userdetails.User user = null;
-
 
     if (principal instanceof org.springframework.security.core.userdetails.User) {
       log.info("principal instance of org.springframework.security.core.userdetails.User");
       user = (org.springframework.security.core.userdetails.User) principal;
       googleSub = "fake_" + user.getUsername();
       email = user.getUsername() + "@example.org";
-      pictureUrl = "https://example.org/" +  user.getUsername() + ".jpg";
+      pictureUrl = "https://example.org/" + user.getUsername() + ".jpg";
       fullName = "Fake " + user.getUsername();
       givenName = "Fake";
       familyName = user.getUsername();
       emailVerified = true;
-      locale="";
-      hostedDomain="example.org";
-      admin= (user.getUsername().equals("admin"));
+      locale = "";
+      hostedDomain = "example.org";
+      admin = (user.getUsername().equals("admin"));
     }
 
-    User u = User.builder()
-    .googleSub(googleSub)
-    .email(email)
-    .pictureUrl(pictureUrl)
-    .fullName(fullName)
-    .givenName(givenName)
-    .familyName(familyName)
-    .emailVerified(emailVerified)
-    .locale(locale)
-    .hostedDomain(hostedDomain)
-    .admin(admin)
-    .id(1L)
-    .build();
-    
+    this.mockUser = User.builder()
+        .googleSub(googleSub)
+        .email(email)
+        .pictureUrl(pictureUrl)
+        .fullName(fullName)
+        .givenName(givenName)
+        .familyName(familyName)
+        .emailVerified(emailVerified)
+        .locale(locale)
+        .hostedDomain(hostedDomain)
+        .admin(admin)
+        .id(1L)
+        .build();
+
+    this.savedUser = User.builder()
+        .googleSub(googleSub)
+        .email(email)
+        .pictureUrl(pictureUrl)
+        .fullName(fullName)
+        .givenName(givenName)
+        .familyName(familyName)
+        .emailVerified(emailVerified)
+        .locale(locale)
+        .hostedDomain(hostedDomain)
+        .admin(admin)
+        .id(1L)
+        .build();
+
     log.info("************** ALERT **********************");
     log.info("************* MOCK USER********************");
-    log.info("authentication={}",authentication);
-    log.info("securityContext={}",securityContext);
-    log.info("principal={}",principal);
-    log.info("user (spring security) ={}",user);
-    log.info("u (our custom user entity)={}",u);
+    log.info("authentication={}", authentication);
+    log.info("securityContext={}", securityContext);
+    log.info("principal={}", principal);
+    log.info("user (spring security) ={}", user);
+    log.info("u (our custom user entity)={}", this.mockUser);
     log.info("************** END ALERT ******************");
 
-    return u;
   }
 
-  public User getUser() {
+  private User initUser() {
     SecurityContext securityContext = SecurityContextHolder.getContext();
     Authentication authentication = securityContext.getAuthentication();
 
     if (!(authentication instanceof OAuth2AuthenticationToken)) {
-      return getMockUser(securityContext, authentication);
+      initMockUser(securityContext, authentication);
     }
 
-    return null;
+    return mockUser;
+  }
+
+  public User getUser() {
+    if (mockUser == null) {
+      mockUser = initUser();
+    }
+    return mockUser;
+  }
+
+  public void resetCurrentUser() {
+    mockUser = User.builder()
+    .googleSub(savedUser.getGoogleSub())
+    .email(savedUser.getEmail())
+    .pictureUrl(savedUser.getPictureUrl())
+    .fullName(savedUser.getFullName())
+    .givenName(savedUser.getGivenName())
+    .familyName(savedUser.getFamilyName())
+    .emailVerified(savedUser.getEmailVerified())
+    .locale(savedUser.getLocale())
+    .hostedDomain(savedUser.getHostedDomain())
+    .admin(savedUser.getAdmin())
+    .id(savedUser.getId())
+    .build();
   }
 
 }

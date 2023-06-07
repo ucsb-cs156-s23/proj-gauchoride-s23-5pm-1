@@ -213,7 +213,6 @@ describe("AppNavbar tests", () => {
         expect(getByTestId("AppNavbar")).toHaveStyle('backgroundColor: #003660')
     });
 
-   
 });
 
 
