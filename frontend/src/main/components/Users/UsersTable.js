@@ -116,7 +116,7 @@ export default function UsersTable({ users}) {
         
     ]
 
-    //const columnsToDisplay = showButtons ? buttonColumn : columns;
+
 
     return <OurTable
         data={users}
