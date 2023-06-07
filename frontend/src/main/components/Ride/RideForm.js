@@ -16,7 +16,7 @@ function RideForm({ initialContents, submitAction, buttonLabel = "Create" }) {
     // Stryker enable all
     const navigate = useNavigate();
 
-
+    const testIdPrefix = "RideForm";
 
     return (
 
@@ -26,7 +26,7 @@ function RideForm({ initialContents, submitAction, buttonLabel = "Create" }) {
                 <Form.Group className="mb-3" >
                     <Form.Label htmlFor="id">Id</Form.Label>
                     <Form.Control
-                        data-testid={"RideForm-id"}
+                        data-testid={testIdPrefix+"-id"}
                         id="id"
                         type="text"
                         {...register("id")}
@@ -39,7 +39,7 @@ function RideForm({ initialContents, submitAction, buttonLabel = "Create" }) {
             <Form.Group className="mb-3" >
                 <Form.Label htmlFor="day">Day of Week</Form.Label>
                 <Form.Select
-                    data-testid={"RideForm-day"}
+                    data-testid={testIdPrefix+"-day"}
                     id="day"
                     isInvalid={Boolean(errors.day)}
                     {...register("day", {
@@ -64,7 +64,7 @@ function RideForm({ initialContents, submitAction, buttonLabel = "Create" }) {
             <Form.Group className="mb-3" >
                 <Form.Label htmlFor="startTime">Start Time</Form.Label>
                 <Form.Control
-                    data-testid={"RideForm-startTime"}
+                    data-testid={testIdPrefix+"-startTime"}
                     id="startTime"
                     type="text"
                     isInvalid={Boolean(errors.startTime)}
@@ -88,7 +88,7 @@ function RideForm({ initialContents, submitAction, buttonLabel = "Create" }) {
             <Form.Group className="mb-3" >
                 <Form.Label htmlFor="endTime">End Time</Form.Label>
                 <Form.Control
-                    data-testid={"RideForm-endTime"}
+                    data-testid={testIdPrefix+"-endTime"}
                     id="endTime"
                     type="text"
                     isInvalid={Boolean(errors.endTime) }
@@ -110,7 +110,7 @@ function RideForm({ initialContents, submitAction, buttonLabel = "Create" }) {
             <Form.Group className="mb-3" >
                 <Form.Label htmlFor="pickupLocation">Pickup Location</Form.Label>
                 <Form.Control
-                    data-testid={"RideForm-pickupLocation"}
+                    data-testid={testIdPrefix+"-pickupLocation"}
                     id="pickupLocation"
                     type="text"
                     isInvalid={Boolean(errors.pickupLocation)}
@@ -130,7 +130,7 @@ function RideForm({ initialContents, submitAction, buttonLabel = "Create" }) {
             <Form.Group className="mb-3" >
                 <Form.Label htmlFor="dropoffLocation">Dropoff Location</Form.Label>
                 <Form.Control
-                    data-testid={"RideForm-dropoffLocation"}
+                    data-testid={testIdPrefix+"-dropoffLocation"}
                     id="dropoffLocation"
                     type="text"
                     isInvalid={Boolean(errors.dropoffLocation)}
@@ -150,14 +150,14 @@ function RideForm({ initialContents, submitAction, buttonLabel = "Create" }) {
 
             <Button
                 type="submit"
-                data-testid={"RideForm-submit"}
+                data-testid={testIdPrefix+"-submit"}
             >
                 {buttonLabel}
             </Button>
             <Button
                 variant="Secondary"
                 onClick={() => navigate(-1)}
-                data-testid={"RideForm-cancel"}
+                data-testid={testIdPrefix+"-cancel"}
             >
                 Cancel
             </Button>
