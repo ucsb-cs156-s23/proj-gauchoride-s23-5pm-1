@@ -156,4 +156,15 @@ public class UsersController extends ApiController {
         }
     }
 
+    @ApiOperation(value = "Change the pronouns field")
+    @PreAuthorize("hasRole('ROLE_USER')")
+    @PostMapping("/changePronouns")
+    public Object changePronouns( @ApiParam("pronouns") @RequestParam String pronouns){
+        User user = super.getCurrentUser().getUser();
+
+        user.setPronouns(pronouns);
+        userRepository.save(user);
+        return genericMessage("User has changed pronouns to %s".formatted(pronouns));
+    }
+
 }

@@ -33,4 +33,6 @@ public class User {
   private boolean driver=false;
   @Builder.Default
   private boolean rider=false;
+  @Builder.Default
+  private String pronouns=" ";
 }
