@@ -26,6 +26,8 @@ import edu.ucsb.cs156.gauchoride.services.CurrentUserServiceImpl;
 @Service("currentUser")
 public class MockCurrentUserServiceImpl extends CurrentUserServiceImpl {
 
+  private User mockUser;
+
   public User getMockUser(SecurityContext securityContext, Authentication authentication) {
     Object principal = authentication.getPrincipal();
 
@@ -84,7 +86,7 @@ public class MockCurrentUserServiceImpl extends CurrentUserServiceImpl {
     return u;
   }
 
-  public User getUser() {
+  private User initUser() {
     SecurityContext securityContext = SecurityContextHolder.getContext();
     Authentication authentication = securityContext.getAuthentication();
 
@@ -93,6 +95,13 @@ public class MockCurrentUserServiceImpl extends CurrentUserServiceImpl {
     }
 
     return null;
+  }
+
+  public User getUser() {
+    if (mockUser == null) {
+      mockUser = initUser();
+    }
+    return mockUser;
   }
 
 }
