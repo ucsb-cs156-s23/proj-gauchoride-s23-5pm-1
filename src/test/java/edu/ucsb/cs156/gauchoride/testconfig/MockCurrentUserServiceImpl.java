@@ -104,4 +104,8 @@ public class MockCurrentUserServiceImpl extends CurrentUserServiceImpl {
     return mockUser;
   }
 
+  public void resetCurrentUser() {
+    mockUser = initUser();
+  }
+  
 }

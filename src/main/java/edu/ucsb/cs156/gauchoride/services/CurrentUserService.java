@@ -16,4 +16,11 @@ public abstract class CurrentUserService {
     return getUser() != null;
   }
 
+  /**
+   * This should only be called in test code, never in production code!
+   * 
+   * It resets the current user to a known state for tests, in case
+   * a previous test has changed it in some way.
+   */
+  public abstract void resetCurrentUser();
 }
