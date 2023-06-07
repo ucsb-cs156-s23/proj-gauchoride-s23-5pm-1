@@ -45,10 +45,64 @@ describe("ProfilePage tests", () => {
         );
 
         await waitFor( () => expect(getByText("Phill Conrad")).toBeInTheDocument() );
-        expect(getByText("phtcon@ucsb.edu")).toBeInTheDocument();
         expect(getByTestId("role-badge-user")).toBeInTheDocument();
         expect(getByTestId("role-badge-admin")).toBeInTheDocument();
         expect(getByTestId("role-badge-member")).toBeInTheDocument();
+        const contactMessage = getByText(
+            "Please contact an admin if any of these parameters are incorrect"
+          );
+      
+        expect(contactMessage).toHaveStyle("color: rgba(128, 128, 128, 0.5)");
+        expect(getByText("phtcon@ucsb.edu")).toBeInTheDocument();
+        expect(getByText("Active Admin")).toBeInTheDocument();
+        expect(getByText("Not a Rider")).toBeInTheDocument();
+        expect(getByText("Not a Driver")).toBeInTheDocument();
+    });
+    test("renders correctly for Rider user", async () => {
+
+        const axiosMock =new AxiosMockAdapter(axios);
+        axiosMock.onGet("/api/currentUser").reply(200, apiCurrentUserFixtures.userOnly2);
+        axiosMock.onGet("/api/systemInfo").reply(200, systemInfoFixtures.showingNeither);
+
+        const { getByText, getByTestId } = render(
+            <QueryClientProvider client={queryClient}>
+                <MemoryRouter>
+                    <ProfilePage />
+                </MemoryRouter>
+            </QueryClientProvider>
+        );
+
+        await waitFor( () => expect(getByText("Phillip Conrad")).toBeInTheDocument() );
+        expect(getByTestId("role-badge-user")).toBeInTheDocument();
+        // expect(getByTestId("role-badge-admin")).toBeInTheDocument();
+        // expect(getByTestId("role-badge-member")).toBeInTheDocument();
+        expect(getByText("pconrad.cis@gmail.com")).toBeInTheDocument();
+        expect(getByText("Not an Admin")).toBeInTheDocument();
+        expect(getByText("Active Rider")).toBeInTheDocument();
+        expect(getByText("Not a Driver")).toBeInTheDocument();
+    });
+    test("renders correctly for Driver user", async () => {
+
+        const axiosMock =new AxiosMockAdapter(axios);
+        axiosMock.onGet("/api/currentUser").reply(200, apiCurrentUserFixtures.userOnly);
+        axiosMock.onGet("/api/systemInfo").reply(200, systemInfoFixtures.showingNeither);
+
+        const { getByText, getByTestId } = render(
+            <QueryClientProvider client={queryClient}>
+                <MemoryRouter>
+                    <ProfilePage />
+                </MemoryRouter>
+            </QueryClientProvider>
+        );
+
+        await waitFor( () => expect(getByText("Phillip Conrad")).toBeInTheDocument() );
+        expect(getByTestId("role-badge-user")).toBeInTheDocument();
+        // expect(getByTestId("role-badge-admin")).toBeInTheDocument();
+        // expect(getByTestId("role-badge-member")).toBeInTheDocument();
+        expect(getByText("pconrad.cis@gmail.com")).toBeInTheDocument();
+        expect(getByText("Not an Admin")).toBeInTheDocument();
+        expect(getByText("Not a Rider")).toBeInTheDocument();
+        expect(getByText("Active Driver")).toBeInTheDocument();
     });
 });
 
