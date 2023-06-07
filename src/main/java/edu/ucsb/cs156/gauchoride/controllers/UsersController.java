@@ -166,5 +166,21 @@ public class UsersController extends ApiController {
         userRepository.save(user);
         return genericMessage("User has changed pronouns to %s".formatted(pronouns));
     }
+  
+    @ApiOperation(value = "Toggle the wheelchair field")
+    @PreAuthorize("hasRole('ROLE_USER')")
+    @PostMapping("/toggleWheelchair")
+    public Object toggleWheelchair(){
+        User user = super.getCurrentUser().getUser();
+
+        user.setWheelchair(!user.getWheelchair());
+        userRepository.save(user);
+        if (user.getWheelchair()) {
+            return genericMessage("User has toggled wheelchair status from false to true");
+        }
+        else {
+            return genericMessage("User has toggled wheelchair status from true to false");
+        }
+    }
 
 }
