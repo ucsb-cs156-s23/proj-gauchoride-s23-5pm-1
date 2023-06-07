@@ -11,3 +11,4 @@ export default {
 const Template = () => <AdminUsersPage />;
 
 export const Default = Template.bind({});
+

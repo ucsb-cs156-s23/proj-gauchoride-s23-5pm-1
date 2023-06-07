@@ -7,6 +7,8 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 
+import javax.management.RuntimeErrorException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.Authentication;
@@ -97,5 +99,9 @@ public class CurrentUserServiceImpl extends CurrentUserService {
 
   public Collection<? extends GrantedAuthority> getRoles() {
    return grantedAuthoritiesService.getGrantedAuthorities();
+  }
+
+  public void resetCurrentUser() {
+    throw new RuntimeException("resetCurrentUser should not be called in production code!");
   }
 }
