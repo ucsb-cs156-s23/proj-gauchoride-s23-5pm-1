@@ -62,13 +62,13 @@ function RideForm({ initialContents, submitAction, buttonLabel = "Create" }) {
 
 
             <Form.Group className="mb-3" >
-                <Form.Label htmlFor="start">Start Time</Form.Label>
+                <Form.Label htmlFor="startTime">Start Time</Form.Label>
                 <Form.Control
                     data-testid={testIdPrefix+"-startTime"}
-                    id="start"
+                    id="startTime"
                     type="text"
-                    isInvalid={Boolean(errors.start)}
-                    {...register("start", {
+                    isInvalid={Boolean(errors.startTime)}
+                    {...register("startTime", {
                         required: "Start time is required.",
                         pattern: {
                             value: /^(0?[1-9]|1[0-2]):[0-5][0-9](AM|PM)$/,
@@ -76,31 +76,34 @@ function RideForm({ initialContents, submitAction, buttonLabel = "Create" }) {
                           }
                     })}
                     placeholder="eg: HH:MM AM/PM (eg: 3:30PM)"
+                    value={initialContents?.startTime}
+
                 />
                 <Form.Control.Feedback type="invalid">
-                    {errors.start?.message}
+                    {errors.startTime?.message}
                 </Form.Control.Feedback>
             </Form.Group>
 
 
             <Form.Group className="mb-3" >
-                <Form.Label htmlFor="end">End Time</Form.Label>
+                <Form.Label htmlFor="endTime">End Time</Form.Label>
                 <Form.Control
                     data-testid={testIdPrefix+"-endTime"}
-                    id="end"
+                    id="endTime"
                     type="text"
-                    isInvalid={Boolean(errors.start) }
-                    {...register("end", {
+                    isInvalid={Boolean(errors.endTime) }
+                    {...register("endTime", {
                         required: "End time is required.",
                         pattern: {
                             value: /^(0?[1-9]|1[0-2]):[0-5][0-9](AM|PM)$/,
                             message: "Use format HH:MM AM/PM (eg: 3:30PM)."
                           }
                     })}
-                    placeholder="eg: HH:MM AM/PM (eg: 3:30PM)"      
+                    placeholder="eg: HH:MM AM/PM (eg: 3:30PM)"  
+                    value={initialContents?.endTime}     
                 />
                 <Form.Control.Feedback type="invalid">
-                    {errors.end?.message}
+                    {errors.endTime?.message}
                 </Form.Control.Feedback>
             </Form.Group>
 
@@ -116,6 +119,7 @@ function RideForm({ initialContents, submitAction, buttonLabel = "Create" }) {
 
                     })}
                     placeholder="eg: Library"
+                    value={initialContents?.pickupLocation}
 
                 />
                 <Form.Control.Feedback type="invalid">
@@ -135,6 +139,8 @@ function RideForm({ initialContents, submitAction, buttonLabel = "Create" }) {
 
                     })}
                     placeholder="eg: Library"
+                    value={initialContents?.dropoffLocation}
+
 
                 />
                 <Form.Control.Feedback type="invalid">

@@ -3,6 +3,7 @@ import HomePage from "main/pages/HomePage";
 import ProfilePage from "main/pages/ProfilePage";
 import AdminUsersPage from "main/pages/AdminUsersPage";
 
+import RideCreatePage from "main/pages/Ride/RideCreatePage";
 
 
 
@@ -25,7 +26,7 @@ function App() {
           hasRole(currentUser, "ROLE_ADMIN") && <Route exact path="/admin/users" element={<AdminUsersPage />} />
         }
         {
-          hasRole(currentUser, "ROLE_USER")
+          hasRole(currentUser, "ROLE_USER") &&  <Route exact path="/rides/create" element={<RideCreatePage />} />
           
         }
       </Routes>
