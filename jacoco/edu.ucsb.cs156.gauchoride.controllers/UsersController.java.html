@@ -156,19 +156,30 @@ import io.swagger.annotations.ApiParam;
         }
     }
 
+    @ApiOperation(value = &quot;Change the pronouns field&quot;)
+    @PreAuthorize(&quot;hasRole('ROLE_USER')&quot;)
+    @PostMapping(&quot;/changePronouns&quot;)
+    public Object changePronouns( @ApiParam(&quot;pronouns&quot;) @RequestParam String pronouns){
+<span class="fc" id="L163">        User user = super.getCurrentUser().getUser();</span>
+
+<span class="fc" id="L165">        user.setPronouns(pronouns);</span>
+<span class="fc" id="L166">        userRepository.save(user);</span>
+<span class="fc" id="L167">        return genericMessage(&quot;User has changed pronouns to %s&quot;.formatted(pronouns));</span>
+    }
+  
     @ApiOperation(value = &quot;Toggle the wheelchair field&quot;)
     @PreAuthorize(&quot;hasRole('ROLE_USER')&quot;)
     @PostMapping(&quot;/toggleWheelchair&quot;)
     public Object toggleWheelchair(){
-<span class="fc" id="L163">        User user = super.getCurrentUser().getUser();</span>
+<span class="fc" id="L174">        User user = super.getCurrentUser().getUser();</span>
 
-<span class="fc bfc" id="L165" title="All 2 branches covered.">        user.setWheelchair(!user.getWheelchair());</span>
-<span class="fc" id="L166">        userRepository.save(user);</span>
-<span class="fc bfc" id="L167" title="All 2 branches covered.">        if (user.getWheelchair()) {</span>
-<span class="fc" id="L168">            return genericMessage(&quot;User has toggled wheelchair status from false to true&quot;);</span>
+<span class="fc bfc" id="L176" title="All 2 branches covered.">        user.setWheelchair(!user.getWheelchair());</span>
+<span class="fc" id="L177">        userRepository.save(user);</span>
+<span class="fc bfc" id="L178" title="All 2 branches covered.">        if (user.getWheelchair()) {</span>
+<span class="fc" id="L179">            return genericMessage(&quot;User has toggled wheelchair status from false to true&quot;);</span>
         }
         else {
-<span class="fc" id="L171">            return genericMessage(&quot;User has toggled wheelchair status from true to false&quot;);</span>
+<span class="fc" id="L182">            return genericMessage(&quot;User has toggled wheelchair status from true to false&quot;);</span>
         }
     }
 
