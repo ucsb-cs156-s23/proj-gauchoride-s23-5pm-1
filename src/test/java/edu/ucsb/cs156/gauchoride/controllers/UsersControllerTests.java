@@ -1,5 +1,6 @@
 package edu.ucsb.cs156.gauchoride.controllers;
 
+
 import edu.ucsb.cs156.gauchoride.ControllerTestCase;
 import edu.ucsb.cs156.gauchoride.entities.User;
 import edu.ucsb.cs156.gauchoride.repositories.UserRepository;
@@ -500,7 +501,43 @@ public class UsersControllerTests extends ControllerTestCase {
 
   @WithMockUser(roles = { "USER" })
   @Test
-  public void user_can_toggle_wheelchair_status_from_false_to_true() throws Exception {
+  public void user_can_change_pronouns() throws Exception {
+          // arrange
+        User currentUser = currentUserService.getCurrentUser().getUser();
+        currentUser.setPronouns("he,him");
+        User userAfter = User.builder()
+        .pronouns("she,her")
+        .id(currentUser.getId())
+        .email(currentUser.getEmail())
+        .googleSub(currentUser.getGoogleSub())
+        .pictureUrl(currentUser.getPictureUrl())
+        .fullName(currentUser.getFullName())
+        .givenName(currentUser.getGivenName())
+        .familyName(currentUser.getFamilyName())
+        .emailVerified(currentUser.getEmailVerified())
+        .locale(currentUser.getLocale())
+        .hostedDomain(currentUser.getHostedDomain())
+        .build();
+
+           when(userRepository.save(eq(userAfter))).thenReturn(userAfter);
+          // act
+          MvcResult response = mockMvc.perform(
+                          post("/api/admin/users/changePronouns?pronouns=she,her")
+                                          .with(csrf()))
+                          .andExpect(status().isOk()).andReturn();
+
+          // assert
+           verify(userRepository, times(1)).save(userAfter);
+
+          Map<String, Object> json = responseToJson(response);
+          assertEquals("User has changed pronouns to she,her", json.get("message"));
+
+          currentUserService.resetCurrentUser();
+  }
+
+    @WithMockUser(roles = { "USER" })
+    @Test
+    public void user_can_toggle_wheelchair_status_from_false_to_true() throws Exception {
                     // arrange
                     User currentUser = currentUserService.getCurrentUser().getUser();
                     currentUser.setWheelchair(false);

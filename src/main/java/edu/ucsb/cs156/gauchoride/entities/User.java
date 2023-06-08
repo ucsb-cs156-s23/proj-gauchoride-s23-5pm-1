@@ -34,5 +34,7 @@ public class User {
   @Builder.Default
   private boolean rider=false;
   @Builder.Default
+  private String pronouns="";
+  @Builder.Default
   private boolean wheelchair=false;
 }
