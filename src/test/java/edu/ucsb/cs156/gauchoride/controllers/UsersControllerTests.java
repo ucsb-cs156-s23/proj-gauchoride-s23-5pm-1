@@ -534,8 +534,9 @@ public class UsersControllerTests extends ControllerTestCase {
 
           currentUserService.resetCurrentUser();
   }
-  
 
+    @WithMockUser(roles = { "USER" })
+    @Test
     public void user_can_toggle_wheelchair_status_from_false_to_true() throws Exception {
                     // arrange
                     User currentUser = currentUserService.getCurrentUser().getUser();
