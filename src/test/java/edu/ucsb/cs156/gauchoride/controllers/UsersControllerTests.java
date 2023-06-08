@@ -534,5 +534,6 @@ public class UsersControllerTests extends ControllerTestCase {
 
           currentUserService.resetCurrentUser();
   }
+  
 
 }
