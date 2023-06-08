@@ -18,9 +18,9 @@ export default function UsersTable({ users}) {
     const toggleRiderMutation = useBackendMutation(
         cellToAxiosParamsToggleRider,
         {},
-        ["/api/admin/users"]
+        ["/api/admin/users", "/api/admin/users/riders", "/api/admin/users/drivers"]
     );
-    // Stryker enable all 
+    // Stryker restore all 
 
      // Stryker disable next-line all : TODO try to make a good test for this
     const toggleRiderCallback = async (cell) => { toggleRiderMutation.mutate(cell); }
@@ -39,9 +39,9 @@ export default function UsersTable({ users}) {
     const toggleAdminMutation = useBackendMutation(
         cellToAxiosParamsToggleAdmin,
         {},
-        ["/api/admin/users"]
+        ["/api/admin/users", "/api/admin/users/riders", "/api/admin/users/drivers"]
     );
-    // Stryker enable all 
+    // Stryker restore all 
 
     // Stryker disable next-line all : TODO try to make a good test for this
     const toggleAdminCallback = async (cell) => { toggleAdminMutation.mutate(cell); }
@@ -62,10 +62,10 @@ export default function UsersTable({ users}) {
     const toggleDriverMutation = useBackendMutation(
         cellToAxiosParamsToggleDriver,
         {},
-        ["/api/admin/users"]
+        ["/api/admin/users", "/api/admin/users/riders", "/api/admin/users/drivers"]
     );
     
-    // Stryker enable all
+    // Stryker restore all
 
     // Stryker disable next-line all : TODO try to make a good test for this
     const toggleDriverCallback = async (cell) => { toggleDriverMutation.mutate(cell); }
@@ -109,12 +109,14 @@ export default function UsersTable({ users}) {
         ...columns,
         ButtonColumn("toggle-admin", "primary", toggleAdminCallback, "UsersTable"),
 
-        ButtonColumn("toggle-rider", "primary", toggleRiderCallback, "UsersTable"),
+        ButtonColumn("toggle-driver", "primary", toggleDriverCallback, "UsersTable"),
 
-        ButtonColumn("toggle-driver", "primary", toggleDriverCallback, "UsersTable")
+        ButtonColumn("toggle-rider", "primary", toggleRiderCallback, "UsersTable")
+
+        
     ]
 
-    //const columnsToDisplay = showButtons ? buttonColumn : columns;
+
 
     return <OurTable
         data={users}

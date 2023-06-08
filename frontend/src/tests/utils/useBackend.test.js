@@ -153,7 +153,7 @@ describe("utils/useBackend tests", () => {
             expect(mockToast).toHaveBeenCalledWith("New ucsbDate Created - id: 17 name: Groundhog Day");
 
         });
-
+        
         test("test useBackendMutation handles error correctly with response message", async () => {
             
             jest.spyOn(console, 'error')
